@@ -1,0 +1,2244 @@
+\documentclass[11pt, letterpaper]{paper_nick}
+\usepackage{utopia}
+
+\renewcommand{\firstrefdash}{}
+
+%%%%%%% FOR SMALL SECTION FONT %%%%%%% 
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\fontsize{11}{11}\bfseries}{\thesection}{1em}{}
+ 
+\titleformat{\subsection}
+  {\normalfont\fontsize{11}{11}\bfseries}{\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\normalfont\fontsize{11}{11}\bfseries}{\thesubsubsection}{1em}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%% FOR WIDE OVERLINE %%%%%%% 
+\usepackage[usestackEOL]{stackengine}
+\usepackage{scalerel}
+\def\myoverline#1{\ThisStyle{%
+  \setbox0=\hbox{$\SavedStyle#1$}%
+  \stackengine{1.0\LMpt}{$\SavedStyle#1$}{\rule{\wd0}{1\LMpt}}{O}{c}{F}{F}{S}%
+}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% FOR WIDE UNDERLINE %%%%%%% 
+\setul{}{1pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\fm}[1]{[$\circ$#1$\circ$]}
+
+\newcommand{\studentName}{Nicholas Longenbaugh}
+
+\begin{document}
+\header{{\large Title}{\small \footnotemark}}{{\small \today}}{Nicholas Longenbaugh}{nslonge@mit.edu}
+
+\footnotetext{For helpful discussion and comments, I thank Kenyon Branan, Justin Colley, Colin Davis, Amy Rose Deal, Danny Fox, Heidi Harley, Sabine Iatridou, Daniel Margulis, David Pesetsky, Norvin Richards, Ian Roberts, Michelle Yuan, and audiences at DP-60. For patient help with judgements, I thank Paul Marty, Sophie Moracchinni, Keny Chatain, Ben Storme, Daniel Margulis, and Ezer Raisin.}
+
+\section{Introduction}
+\begin{itemize}
+\item A conceptual question at the heart of modern syntactic theory:
+\begin{itemize}
+\item \emph{What is the correlation between $\varphi$-\emph{Agree} and movement?}
+\end{itemize}
+\item Early minimalism (e.g., \citealt{chomsky95}) postulated a strong correlation: $\varphi$-\emph{Agree} is the result of movement through specific syntactic positions 
+\ex. {\bf Specifier-head agreement}:\\
+If AgrX is an agreement head and DP a phrase bearing $\varphi$-features, morphological agreement obtains only if the following structural configuration obtains: 
+
+\ex. [$_\text{AgrXP}$ DP [$_\text{AgrXP}$ AgrX [\ldots \st{DP}\ldots]]]
+
+\item This is especially successful for agreement phenomena in the $v$P domain, e.g., past-participle agreement in Romance and Scandinavian, which is (mostly) contingent on movement across the participle (\citealt{kayne85}, \citeyear{kayne89b}; \citealt{christensen89})
+\ex.\label{ftppa} \emph{French}
+\ag. Jean n'a jamais fait({\bf *es}) {\bf ces} {\bf sottises}\\
+Jean \SC{neg}.have.\SC{3sg} never done\SC{.m.sg/*f.pl} these {stupid things}.\SC{f.pl}\\
+`Jean has never done these stupid things'
+\bg. Jean ne {\bf les} a jamais fait{\bf (es)}\\
+Jean \SC{neg} \SC{them.cl} have.\SC{3sg} never done-\SC{f.pl}\\
+`John has never done them.'\\
+(adopted from \citealt{belletti06})
+
+\item Modern minimalist theories usually assume, however, that $\varphi$-\emph{Agree} is formally dissociated from movement
+\ex. {\bf \emph{Agree}} (\citeauthor{chomsky00} \citeyear{chomsky00}, \citeyear{chomsky01}):\\
+An \emph{Agree} relation obtains between a head H and a phrase XP, provided:
+%\a.[(i)] Activity: H and XP are both active, i.e., bear unvalued features
+\a.[(i)] \ul{Matching}: XP bears valued features that are a superset of the unvalued features on H 
+\b.[(ii)] \ul{Locality}:\ \ \ \ There is no YP asymmetrically c-commanding XP that satisfies matching
+
+\item This formulation is based on a variety of cross-linguistic examples where $\varphi$-\emph{Agree} obtains in the absence of overt movement (some examles may involve covert movement; see \citealt{koopman06})
+\begin{itemize}
+\item Tsez (\citealt{polinsky01}), English (\citealt{chomsky00}, \citeyear{chomsky01}), Icelandic (\citealt{sigurdhsson96}, \citeyear{sigurdhsson08}; \citealt{boeckx08b}), Hindi-Urdu (\citealt{boeckx04}; \citealt{bhatt05}), Basque (\citealt{etxepare07}; \citealt{preminger09})
+\end{itemize}
+\exg. Ram-ne [{\bf rotii} khaa-nii] chaah-{\bf ii}\\
+Ram-\SC{erg} bread.\SC{f} eat-inf.\SC{f} want.\SC{perf.fsg}\\
+`Ram wanted to eat bread.'\\
+(\citealt{bhatt05}: 792)
+
+\item Cases where $\varphi$-\emph{Agree} appears to trigger movement are captured by a stipulated feature, either on the head or on the \emph{Agree}-probe itself\\
+%\begin{itemize}
+%\item Edge feature: if a head H (or $\varphi$-probe on H) has the edge-feature, $\varphi$-\emph{Agree} must trigger movement to Spec(HP) 
+%\end{itemize}\
+\item This state of affairs leaves unanswered a number of fundamental questions, both theoretical and technical
+\begin{itemize}
+\item How do we handle PPA and other apparent instances of Spec-Head agreement in a long-distance $\varphi$-\emph{Agree} framework?
+\item Can we predict the distribution of EPP features, i.e., which probes trigger movement, or must this be stipulated in an ad-hoc, language specific way?
+\item Why should agreement and movement ever be correlated in the first place? 
+\end{itemize}
+\item \underline{Goals for today}: Use PPA as a case study to probe the bigger questions surrounding $\varphi$-\emph{Agree} and \emph{Merge/Move}, in support of the following conclusion:
+\ex. \textbf{$\varphi$-\emph{Agree}/\emph{Merge} correlation}:\\
+Every $\varphi$-probe is associated with an EPP feature that forces \emph{Merge} to the triggering head 
+
+\item Consequences: 
+\begin{itemize}
+\item[$\Rightarrow$] All else being equal, $\varphi$-\emph{Agree} triggers movement 
+\begin{itemize}
+\item Spec-Head patterns result from interference effects on heads with a semantic requirement to introduce an argument: agreement trigger and argument compete for \emph{Merge}
+\end{itemize}
+\item[$\Rightarrow$] (At least some) null subject languages have EPP and null expletives
+\item[$\Rightarrow$] A new approach to expletive \emph{there}
+\item[$\Rightarrow$] Broad cross-linguistic empirical coverage of when \emph{Agree} can be ``long-distance''
+\end{itemize}
+\item Outline
+\begin{itemize}
+\item Past-participle agreement
+\begin{itemize}
+\item Challenges to long-distance-\emph{Agree} frameworks
+\item A new empirical generalization
+\item Capturing the data
+\end{itemize}
+\item A new treatment of expletive \emph{there}
+\item The \emph{Agree}/\emph{Merge} correlation
+\begin{itemize}
+\item Proposal
+\item Null subject languages have the EPP \& null expletives
+\item Predicting the cross-linguistic distribution of LDA
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\begin{comment}
+\item {\bf Proposal}: A satisfactory answer to these questions is possible with little more than the following three core ideas from modern minimalist syntax
+\begin{enumerate}
+\item \underline{Configurational Case, and Case discriminating \emph{Agree}} (\citealt{bobaljik08}; \citealt{preminger14})
+\begin{itemize}
+\item Case is valued on the basis of the presence or absence of other DPs in a local domain
+\ex. {\bf Case valuation}:\\
+Given a configuration as below, where DP$_1$ asymmetrically m-commands DP$_2$, and there is no phase head that m-commands DP$_2$ but not DP$_1$, value the case feature on DP$_2$\\\\\\
+\ [$_\text{$\alpha$}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}DP$_1$ [ \ldots \Tikzmark{str}{\phantom{D}}\hspace*{-.3cm}DP$_2$ \ldots]]
+\DrawCase{str}{end}{above}{Case valuation}[-1.5]
+ 
+\item $\varphi$-\emph{Agree} is case discriminating (\citealt{bobaljik08}; \citealt{preminger14}) 
+\ex. {\bf The Moravcsik Hierarchy}:\\
+unmarked case $>>$ dependent case $>>$ lexical/oblique case
+
+\end{itemize}
+\item \underline{Multi-tasking/maximal satisfaction} (\citealt{chomsky95}; \citealt{bruening01}; \citealt{pesetsky01}; \citealt{rezac13}; \citealt{urk15}; \citealt{richards16})
+\begin{itemize}
+\item There is a general preference for feature checking/unification to be maximal
+\ex. {\bf Multi-tasking}:\\
+Given head H and phrase XP, where XP can check/unify some subset $S$ of H's features, the derivation prefers checking/unification of all of $S$ over some proper subset of $S$
+
+\end{itemize}
+\item \underline{Feature-driven merge} (\citealt{adger03}; \citealt{collins03}; \citealt{lechner04}; \citealt{kobele06}; \citealt{pesetsky07}; \citealt{muller10})
+\begin{itemize}
+\item Unify \emph{Agree}, \emph{Internal Merge}, \emph{External Merge} as feature driven operations
+\item Two types of features:
+\begin{itemize}
+\item Structure building, which triggers \emph{Merge}: [$\circ$ F $\circ$] 
+\item Probing, which triggers \emph{Agree}: [$*$ F $*$] 
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\end{comment}
+
+\section{Proposal}
+\subsection{Architectural Preliminaries}
+My proposal depends on some background conclusions concerning the nature and structure of the syntactic derivation, which I lay out here. 
+
+I will be taking for granted the main tenets of \posscitet{preminger14} \emph{Obligatory Operations} (ObOp) framework, which has the following central tenet. Each primitive syntactic object $H$ is associated with a (potentially empty) set of operations $O=\{o_1, o_2, \cdots\}$, along with structural conditions $C=\{c_1, c_2, \cdots\}$ that govern when the operations can apply. If, in the course of the derivation, condition $c_i$ on operation $o_i$ on head $H$ is met, then operation $o_i$ must apply. If condition $c_i$ is never met, however, $o_i$ never applies and the derivation continues. %In the course of the discussion, we will find it necessary to make some minor revisions, but I will generally take it that the derivation is governed by something like ObOp. 
+
+ObOp has important consequences for both of the main syntactic operations, \emph{Agree} and \emph{Merge}, that will be relevant to my proposal. The results concerning \emph{Agree} are well known, so I'll just give a cursory overview here. In the terminology from above, we can define \emph{Agree} as in \Next.
+\ex. \emph{X-Agree}
+\a. $o_i$: copy the value of $X$ on YP onto $H$
+\b. $c_i$: apply $o_i$ at $H$ iff there is some YP with feature $X$ such that:
+\a. Locality: $H$ c-commands YP and there is no ZP c-commanded by $H$ and asymmetrically c-commanding $XP$ that bears feature $X$
+\b. Accessibility: YP is accessible to $H$
+
+The \emph{accessibility} condition is added to reflect the independent hypothesis, which I will also adopt, that $\varphi$-\emph{Agree} is case discriminating (\citealt{bobaljik08}; \citealt{preminger14}): case valuation determines whether or not a given DP is accessible to $\varphi$-\emph{Agree} (see \ref{casedisc}), with accessibility parameterized across languages according to the \emph{Moravcsik Hierarchy} (see \Next[b]). The most restrictive languages make only those DPs with unmarked case accessible for agreement, while some languages also make DPs with dependent case accessible, and some even tolerate agreement with DPs bearing lexical case.
+\ex. \textbf{Case Accessibility}:\\
+Accessibility to \emph{Agree} is determined according to the \emph{Moravcsik Hierarchy}:\\
+\emph{unmarked case} >> \emph{dependent case} >> \emph{lexical/oblique} case
+
+This notion in turn depends on the Dependent model of case (\citealt{marantz84}; \citealt{bobaljik08}), and in particular on the tenets (i) that case is valued configurationally in the syntax (Preminger 2014: Ch.9) according to the principles in \Next, and (ii) that unvalued case features do not crash the derivation, in keeping with general ObOp logic. I adopt these in this paper. 
+\ex. \textbf{Case valuation}:
+\a. \underline{Lexical Case}: Given the configuration [H DP], where H is a lexical case assigner, value the case feature on DP. 
+\b. \underline{Dependent Case}: Given the configuration [DP$_1$ [\ldots[\ldots DP$_2$\ldots]]], where DP$_1$ and DP$_2$ have unvalued case features,\footnotemark\ value the case feature on DP$_2$. 
+
+\footnotetext{\label{oblique_nocase}Note that DPs bearing lexical/oblique case do not trigger the case valuation algorithm. We can confirm this empirically by examining Icelandic quirky-subject constructions: in \ref{q1}, where neither of the subject or object bears lexical case, valuation proceeds as expected, with the object getting dependent (accusative) case and the subject unmarked (nominative) case; in \ref{q2}, however, where the subject gets lexical case, the object surfaces with unmarked (nominative) case, indicating that the case valuation algorithm did not take place. 
+\begin{multicols}{2}
+\ex. \ag.\label{q1}\th eir seldu b\'okina.\\
+they.\SC{pl.nom} sold.\SC{pl} book.the.\SC{sg.acc}\\
+`They sold the book'
+\bg.\label{q2}J\'oni l\'iku\dh u \th essir sokkar\\
+Jon.\SC{dat} liked.\SC{pl} these socks.\SC{nom.pl}\\
+`John liked these socks.'\\ (Preminger 2014: 145)
+
+\end{multicols}
+} 
+
+%The accessibility clause in \LLast then reflects the hypothesis that while $\varphi$-\emph{Agree} is not responsible for case valuation, it is sensitive to it: case valuation determines whether or not a given DP is accessible to $\varphi$-\emph{Agree} (see \ref{casedisc}), with accessibility parameterized across languages according to the \emph{Moravcsik Hierarchy} (see \Next[b]). The most restrictive languages make only those DPs with unmarked case accessible for agreement, while some languages also make DPs with dependent case accessible, and some even tolerate agreement with DPs bearing lexical case.
+The ObOp logic then dictates that if a head $H$ is associated with an agreement operation $X$-\emph{Agree}, this operation must take place if the conditions on its application are met. If these conditions fail to be met, for example because the only possible target of \emph{Agree} is not case-accessible, the derivation proceeds without crashing. I refer the reader to Bobaljik (2008) and Preminger's (2014) work for more information and simply accept these principles as given.  
+
+The second basic syntactic operation, \emph{Merge}, receives comparatively less discussion in the development of the ObOp framework, although the basic logic can be readily extended to cover this operation as well. Because it will be crucially important to the eventual analysis, it's worth reviewing in slightly more detail how ObOp interacts with \emph{Merge}. Following Preminger, I illustrate the interaction via the paradigmatic case of \emph{wh}-movement, which I assume proceeds through all Spec(CP) positions along its path. The derivation of \Next[a] thus contains at least the two steps in \Next[b].
+\ex. \a. What did John say that Sue bought?
+\b. [$_\text{CP}$ What [did John say [$_\text{CP}$ \st{what} [that Sue bought \st{what}]]]]
+
+Following Preminger (2014: 10.1.3), we can capture this behavior in a uniform and parsimonious way by assuming that all C heads, both interrogative and not, are associated with the operation \emph{Merge}-\emph{wh}, defined in general below.
+\ex. \emph{Merge}-\emph{X}
+\a. $o_i$: merge (a projection of) $H$ with an YP bearing the feature $X$
+\b. $c_i$: apply $o_i$ at $H$ iff there is some YP with feature $X$ such that:
+\a. YP is present in the numeration/lexicon (hasn't been merged before), or 
+\b. $H$ c-commands XP in the structure and there is no YP c-commanded by $H$ that both asymmetrically c-commands XP and bears the feature $wh$
+
+In the case of the embedded clause in \LLast, ObOp therefore dictates that the non-interrogative C {must} merge with the \emph{wh}-phrase in its scope. In examples where there is no \emph{wh}-phrase present in the structure, however, the \emph{Merge}-\emph{wh} operation simply goes untriggered.\footnote{The selection and introduction of a \emph{wh}-phrase from the lexicon is ruled out by $\theta$-theoretic concerns, I assume.} Because untriggered operations are unproblematic, the derivation converges, as desired.  
+We can therefore safely assume that all non-interrogative Cs are alike in being associated with an obligatory \emph{Merge}-\emph{wh} operation which is triggered if and only if the proper conditions arise. %In contrast, if we assume, following Chomsky (2000, 2001), that uninterpretable features crash the derivation, the treatment of long-distance \emph{wh}-movement requires that we posit two varieties of non-interrogative C: one that bears the movement-triggering feature, and which is used in exactly those cases where there is a higher interrogative C, and one that does not bear the movement-triggering feature, and which is used in all other cases. The ObOp framework thus provides a more parsimonious treatment of intermediate movement of this sort. 
+
+While Preminger does not discuss it, this basic system extends to other cases of \emph{Merge} as well. For instance, we can capture the canonical EPP effect by positing that there is an obligatory \emph{Merge}-{D} operation associated with T.\footnote{As we will see later, the EPP on T is not limited to being satisfied by DPs, cross-linguistically. I set this aside for now.} Granting that T is not capable of introducing new arguments (it is not a $\theta$-position, nor is $\extn{TP}$ underlyingly type $\langle e,\tau\rangle$), there are therefore two cases in which \emph{Merge}-D could apply, given the definition in \Last: (i) there is an expletive, which does not require a $\theta$-role and which I will take to be semantically vacuous, present in the lexicon/numeration, or (ii) there is an XP already present in the structure that can be moved to Spec(TP).\footnote{\label{transexp}Note that those languages which disallow transitive expletives arguably impose a restriction on the first option, so that in general the EPP at T is always satisfied by movement. See fn.\ref{expl1}, Section \ref{ }.} Adopting the null hypothesis that \emph{Merge} has access to both the lexicon and the outputs of all previous instances of \emph{Merge}, one of these two conditions will always be met: either the complement to T contains an DP that can move to satisfy EPP, or there is no such DP, in which case an expletive can be selected from the lexicon. 
+\footnote{\label{expl1} Languages like English, French, Mainland Scandinavian present a \emph{prima facie} problem in that expletives are arguably restricted to being merged in Spec($v$P) (see Section \ref{ }; \citealt{richards06}; \citealt{deal09}; \citealt{wu}; a.o.). This raises the possibility that such languages should allow an empty Spec(TP) in the case where the complement to T does not furnish an EPP-satisfying element, counter to fact. We can exclude this possibility if we assume that $v$ also has an \fm{X} feature. The logic above then proceeds identically, but at the $v$P level: either a lower XP must be merged or attracted, or an expletive merged. Spec($v$P) will therefore always be occupied, which ensures that there will always be an XP that is accessible to satisfy the EPP at T. See Section \ref{ } for more discussion.} In either case, there is always something available to be merged, so by the ObOp logic, Spec(TP) must always be occupied. 
+\ex. \a. Case (i): lower accessible DP\\
+\ [\SC{expl}/XP [T [\ldots[ \ldots DP \ldots]]]] \hfill (\emph{Merge}(T,DP) or \emph{Merge}(T,\SC{expl}) \emph{obligatory})
+\b. Case (ii): no lower accessible DP\\
+\ [\SC{expl} [T [\ldots[\ldots YP\ldots]]]] \hfill (\emph{Merge}(T,\SC{expl}) \emph{obligatory})
+
+%%While this leaves unanalyzed several complications concerning the cross-linguistic behavior and distribution of expletives, which I return to in Section ?? (see also fns. \ref{transexp}, \ref{expl1}), we therefore correctly derive that Spec(TP) will always be filled in languages where T is associated with a \emph{Merge}-DP operation. 
+
+An important question arises at this juncture. Once we admit that some heads are associated with obligatory \emph{Merge} rules that operate according to the ObOp logic, we must ask if these cases are somehow special, or if all of the possible merger operations available at a given head are specified in the lexicon, like the types of available \emph{Agree} operations. For the remainder of this paper, I will assume that the possible \emph{Merge} operations available at $H$ are indeed pre-specified, so that all cases of both \emph{merge} and \emph{agree} are governed by the same system and logic. It's important to point out that this does not replicating syntactic structure in the lexicon, a common criticism of other varieties of feature-driven \emph{Merge}. Specifying the merge operations at head $H$ merely serves to define the domain of operations available at that head, but gives no information about the order they apply in, which operations apply in which derivation, etc. In particular, I do not assume any predetermined ordering on operations, or any requirement that a given operation take place beyond those imposed by ObOp. The operations that take place in the derivation and their order are therefore governed purely by concerns of interpretability, e.g., as encoded in a type theory on semantic interpretation, and by the ObOp logic. 
+
+Before moving on, I illustrate a simplified derivation to highlight the key aspects of the system. For convenience, I will hereafter encode the operations available at a given head in terms of the features below, and say that a given feature is discharged by the associated operation. 
+\ex. \a. Agree features: [\fa{X}:\_], \emph{Agree} with a YP bearing X
+\b. Merge features: \fm{X}, \emph{Merge} with a YP bearing X
+
+Limiting my attention to the heads V, $v$, T, C, and assume for simplicity that these are the only heads in the clausal spine. As above, I assume T has a canonical EPP feature, encoded here as \fm{D}, and a $\varphi$-probe, and that C has features for attracting various A$'$-elements, including \emph{wh}, topic, etc. At $v$, I likewise assume there is a \fm{D} feature for merging the external argument, as well as various merge features for A$'$-elements and a feature for merging with $v$'s complement. Transitive and unaccusative verb, I assume, are endowed at least with a feature selecting its complement. 
+\begin{multicols}{2} 
+\ex. \a. V: [\fm{D},\ldots]
+\b. $v$: [\fm{V},\fm{D},\fm{wh},\fm{Top},\ldots]
+\b. T: [\fm{$v$},\fm{D},$\varphi$:\_]
+\b. C: [\fm{T},\fm{wh},\fm{Top},\ldots]
+\end{multicols}
+
+The example in \Next is then derived as below, with the order of operations determined by concerns of interpretability. First, V merges with \emph{what}, satisfying its \fm{D} feature. Next $v$ merges with VP, satisfying its \fm{V} feature, then the external argument, satisfying its \fm{D} feature, then finally with the internal argument \emph{what}, satisfying its \fm{wh} feature. T is then merged in the structure, satisfying its \fm{$v$} feature, and attracts the external argument \emph{Mary}, satisfying its \fm{D} feature. Finally, C merges with TP, satisfying \fm{T}, and with \emph{what}, satisfying \fm{wh}.  
+\ex. \a. What did Mary buy?
+\b. [$_\text{CP}$ what [C [Mary [T [what [Mary [$v$ [buy what]]]]]]]]
+
+
+\subsection{The framework}
+%\subsubsection{Obligatory operations}
+The core hypothesis of the Obligatory Operations, hereafter ObOp, framework is that syntactic operations are \emph{obligatory} but \emph{fallible}: a given syntactic operation must apply if and only if the conditions on its application are met. The failure to apply a given operation is therefore tolerated if these conditions are never met. For our purposes, we will primarily be concerned with the primitive syntactic operations \emph{Agree} and \emph{Merge}, so I will enumerate my assumptions concerning these operations and illustrate how the ObOp system works here. Given the close link between \emph{Agree} and (morphological) case, I will also discuss the version of case theory that I adopt, and how it interacts with the ObOp framework. 
+
+\subsubsection{\emph{Agree} \& Case}
+To begin, I adopt the common position that \emph{Agree} is a feature-driven operation, triggered by distinguished ``probe'' features (see \Next), and defined as in \NNext.
+%\emph{Agree} is then the operation which discharges an unvalued probe feature [F:\_], along the following lines.
+\ex. \textbf{Probe features}: Given an unvalued probe feature [F:\_] on head H, F can be discharged by an instance of \emph{Agree} between H and some XP bearing a valued copy of feature F. 
+
+\ex. \textbf{Agree}:
+Given an unvalued probe feature [F:\_] on head H and a valued probe feature, [G:$i$], on phrase XP, specify the value of F on H as $i$ iff:
+\a. \underline{Matching}: G is a superset of F
+\b. \underline{Locality}: H c-commands XP and there is no YP c-commanded by H and asymmetrically c-commanding XP that bears a valued feature satisfying matching
+\b. \underline{Accessibility}: XP is case-accessible to H 
+
+With this in mind, the ObOp framework dictates that each unvalued probe feature must be discharged by \emph{Agree}, if possible. If there is no XP that satisfies \emph{Matching}, \emph{Locality}, and \emph{Accessibility} above, however, a probe feature can go undischarged/unvalued without crashing the derivation, unlike in the model of \citeauthor{chomsky00} (\citeyear{chomsky00}; \citeyear{chomsky01}). In such cases, I take it that unvalued/undischarged features are assigned a default value at spell out. I will presuppose a basic familiarity with the arguments in favor of this ObOp approach to \emph{Agree}, and adopt it here without further discussion. 
+
+I will also adopt the Dependent Theory of case, which better compatible with the ObOp framework than the uninterpretable features theory (\citealt{chomsky00}, \citeyear{chomsky01}). 
+%Allowing \emph{Agree} to be fallible in this sense is at odds with the classic minimalist view of case (\citealt{chomsky00}, \citeyear{chomsky01}), which posits that case and $\varphi$-features exist as co-dependent constraints on the derivation: each unvalued $\varphi$-feature set on a functional head must be matched with exactly one unvalued case feature on a DP, and vice versa, or the derivation crashes. I will therefore adopt the dependent model of case (\citealt{marantz84}; \citealt{bobaljik08}; \citealt{preminger14}). 
+For our purposes, this model can be summarized in two core hypotheses. The first is that case is an essential reflection of argument structure rather than a licensing mechanism: the failure to value the case feature on DP thus does not result in a crash, and case valuation is determined according to the following two rules: (i) certain lexical heads can value the case feature of their complement DPs, giving rise to so-called \emph{lexical} or \emph{oblique} case; (ii) when two DPs in the same local domain are such that one asymmetrically c-commands the other, the case feature on the lower DP gets valued.\footnote{In an ergative/absolutive case system, this is reversed, so that the higher of the two DPs' case feature is valued.} 
+Case valued in this way is said to be \emph{dependent}, while the unvalued case feature on the higher DP is said to represent \emph{unmarked} case. Unmarked case is taken to be spelled out as nominative at PF, and dependent case as accusative. Lexical case is spelled out according to the specific and possibly idiosyncratic specifications of the relevant case assigning head. I follow Preminger (2014: Ch.9) in assuming that case valuation is a syntactic operation, and moreover that it takes place as soon as the relevant structural configuration is achieved. 
+\ex. \textbf{Case licensing \& valuation}:
+\a. There is no case licensing 
+\b. Case valuation is syntactic, and computed as follows:
+\a. \underline{Lexical Case}: Given the configuration [H DP], where H is a lexical case assigner, value the case feature on DP
+\b. \underline{Dependent Case}: Given the configuration [DP$_1$ [\ldots[\ldots DP$_2$\ldots]]], where DP$_1$ and DP$_2$ have unvalued case features,\footnotemark\ value the case feature on DP$_2$
+
+\footnotetext{\label{oblique_nocase}Note that DPs bearing lexical/oblique case do not trigger the case valuation algorithm. We can confirm this empirically by examining Icelandic quirky-subject constructions: in \ref{q1}, where neither of the subject or object bears lexical case, valuation proceeds as expected, with the object getting dependent (accusative) case and the subject unmarked (nominative) case; in \ref{q2}, however, where the subject gets lexical case, the object surfaces with unmarked (nominative) case, indicating that the case valuation algorithm did not take place. 
+\begin{multicols}{2}
+\ex. \ag.\label{q1}\th eir seldu b\'okina.\\
+they.\SC{pl.nom} sold.\SC{pl} book.the.\SC{sg.acc}\\
+`They sold the book'
+\bg.\label{q2}J\'oni l\'iku\dh u \th essir sokkar\\
+Jon.\SC{dat} liked.\SC{pl} these socks.\SC{nom.pl}\\
+`John liked these socks.'\\ (Preminger 2014: 145)
+
+\end{multicols}
+} 
+
+The second core hypothesis is that while $\varphi$-\emph{Agree} is not responsible for case valuation, it is sensitive to it. Specifically, case valuation determines whether or not a given DP is accessible to $\varphi$-\emph{Agree} (see \ref{casedisc}), with accessibility parameterized across languages according to the \emph{Moravcsik Hierarchy} (see \Next[b]). The most restrictive languages make only those DPs with unmarked case accessible for agreement, while some languages also make DPs with dependent case accessible, and some even tolerate agreement with DPs bearing lexical case.
+\ex. \textbf{Case Accessibility}:
+\a. $\varphi$-\emph{Agree} is case discriminating (see \ref{casedisc}) 
+\b. Accessibility to \emph{Agree} is determined according to the \emph{Moravcsik Hierarchy}:\\
+\emph{unmarked case} >> \emph{dependent case} >> \emph{lexical/oblique} case
+
+%Icelandic, which falls into the most restrictive category, offers a particularly clear demonstration of this effect. In ordinary transitive clauses, the verb agrees with the unmarked (nominative) subject. If, however, the subject bears quirky lexical case, here spelled out as dative, the verb agrees with the object, which has unmarked (nominative) case (see fn. \ref{oblique-nocase}). 
+
+\subsubsection{\emph{Merge}}
+With the basic framework surrounding agreement and case in place, I turn my attention now to the other primitive syntactic operation, \emph{Merge}. Unlike with \emph{Agree}, which is widely held to be a feature-driven operation, there is disagreement as to whether \emph{Merge} should be treated similarly (yes: \ref{ }; no: \ref{ }). I will remain agnostic on this question in the general case, but I will adopt the better established position that there are designated ``EPP'' features capable of triggering \emph{Merge} in some instances. 
+\ex. \textbf{EPP features}: Given an EPP feature \fm{F} on head H, \fm{F} can be discharged by merging H (or a projection thereof) with an XP bearing feature F. 
+
+As with probing features, I will hold that EPP-feature discharge proceeds according to the basic ObOp logic: given an EPP feature \fm{F} on head H, if there is an XP in the current workspace bearing feature F that can be felicitously merged with H, it must be; if there is no such XP, the derivation proceeds intact, without discharging the feature. %I further assume that unlike with \emph{Agree}, where there is a variety of cross-linguistic evidence that a single DP can satisfy multiple $\varphi$-probes, a single XP cannot satisfy multiple EPP features on a given head.
+
+While I assume most readers are familiar with the ObOp treatment of \emph{Agree}, the application to EPP features is somewhat more opaque, so I briefly consider two cases relevant to the ensuing analysis. The first is A$'$-EPP features, which are implicated in the ObOp analysis of long-distance A$'$-movement. I illustrate via the paradigmatic case of \emph{wh}-movement, which I assume proceeds through all Spec(CP) positions along its path. The derivation of \Next[a] thus contains at least the two steps in \Next[b].
+\ex. \a. What did John say that Sue bought?
+\b. 
+
+%Of particular interest is the intermediate movement step, which is usually taken to be triggered by the non-interrogative embedded C. In the ObOp framework, we can capture this intermediate movement by positing that all C heads, both interrogative and not, host a \emph{wh}-EPP feature, \fm{\emph{wh}}. 
+Following Preminger (2014: 10.1.3), we can capture this behavior in a uniform and parsimonious way by assuming that all C heads, both interrogative and not, have a \fm{\emph{wh}} feature. In the case of the embedded clause in \Last, ObOp therefore dictates that the non-interrogative C {must} attract the \emph{wh}-phrase, as it is capable of satisfying its \fm{\emph{wh}} feature. In examples where there is no \emph{wh}-phrase present in the structure, \fm{\emph{wh}} is left undischarged on C.\footnote{The selection and introduction of a \emph{wh}-phrase from the lexicon is ruled out by $\theta$-theoretic concerns, I assume.} Because undischarged features are unproblematic, the derivation converges, as desired.\footnote{\label{locality}I set aside at present the question of how the above-mentioned ``attraction'' takes place, and simply assume that move/re-merge is constrained by familiar principles of locality. I return to this issue in Section \ref{ }.}  
+We can therefore safely assume that all non-interrogative Cs are alike in bearing a \fm{\emph{wh}} feature. In contrast, if we assume, following Chomsky (2000, 2001), that uninterpretable features crash the derivation, the treatment of long-distance \emph{wh}-movement requires that we posit two varieties of non-interrogative C: one that bears the movement-triggering feature, and which is used in exactly those cases where there is a higher interrogative C, and one that does not bear the movement-triggering feature, and which is used in all other cases. The ObOp framework thus provides a more parsimonious treatment of intermediate movement of this sort. 
+
+
+The second case to consider is the cross-linguistically widespread canonical EPP effect, whereby Spec(TP) must be occupied by some XP. Setting aside for now the precise identity of XP, which varies considerably across languages, we can encode this effect in the present system by positing an EPP feature, \fm{X}, at T. At first glance, the ObOp view of EPP would seem to be too lenient in this case: unlike with A$'$-EPP features, which can sometimes go undischarged, in languages exhibiting canonical EPP effects, Spec(TP) must be filled. The resolution to this apparent problem, I argue, is to recognize that the derivation \emph{always} furnishes an XP capable of discharging the EPP feature at T. In ObOp terms, then, EPP satisfaction is obligatory because conditions always permit it to take place. 
+%If we assume that expletives are always potentially accessible for \emph{Merge} at any given stage of the derivation, then we correctly capture the fact that canonical EPP satisfaction is obligatory.
+%At first glance, the ObOp view of EPP would seem to be too lenient: it allows EPP features to go undischarged, but in languages exhibiting canonical EPP effects, Spec(TP) must be filled. The resolution to this apparent problem, I argue, is to recognize that the derivation \emph{always} furnishes an XP capable of discharging the EPP feature. In ObOp terms, then, EPP satisfaction is obligatory because conditions always permit it to take place. 
+
+In particular, I adopt the null hypothesis that at any stage of the derivation, \emph{Merge} has access to both the lexicon and the outputs of all previous instances of \emph{Merge}. Granting that T is not capable of introducing new arguments (it is not a $\theta$-position, nor is $\extn{TP}$ underlyingly type $\langle e,\tau\rangle$), there are therefore two options for satisfying EPP at T: (i) select an expletive, which does not require a $\theta$-role and which I will take to be semantically vacuous, from the lexicon and merge it in Spec(TP), or (ii) select an XP already present in the structure and re-merge it in Spec(TP). Taken together, these two cases suffice to capture all possible derivations: either the complement to T contains an XP that can move to satisfy EPP, in which case either XP or an expletive can be merged, or there is no such XP, in which case an expletive can still be merged.
+\footnote{\label{expl1} Languages like English, French, Mainland Scandinavian present a \emph{prima facie} problem in that expletives are arguably restricted to being merged in Spec($v$P) (see Section \ref{ }; \citealt{richards06}; \citealt{deal09}; \citealt{wu}; a.o.). This raises the possibility that such languages should allow an empty Spec(TP) in the case where the complement to T does not furnish an EPP-satisfying element, counter to fact. We can exclude this possibility if we assume that $v$ also has an \fm{X} feature. The logic above then proceeds identically, but at the $v$P level: either a lower XP must be merged or attracted, or an expletive merged. Spec($v$P) will therefore always be occupied, which ensures that there will always be an XP that is accessible to satisfy the EPP at T. See Section \ref{ } for more discussion.} In either case, there is always something available to satisfy the EPP, so by the ObOp logic, Spec(TP) must always be occupied. 
+\ex. \a. Case (i): lower accessible XP\\
+\ [\SC{expl}/XP [T [\ldots[ \ldots XP \ldots]]]] \hfill (\emph{Merge}(T,XP) or \emph{Merge}(T,\SC{expl}) \emph{obligatory})
+\b. Case (ii): no lower accessible XP\\
+\ [\SC{expl} [T [\ldots[\ldots YP\ldots]]]] \hfill (\emph{Merge}(T,\SC{expl}) \emph{obligatory})
+
+While this leaves unanalyzed several complications concerning the cross-linguistic behavior and distribution of expletives, which I return to in Section ?? (see also fns. \ref{transexp}, \ref{expl1}), the net result is that the canonical EPP is correctly captured under the ObOp logic. 
+
+\subsubsection{Order of operations}
+%In the remainder of this paper I will therefore be assuming that the grammar furnishes both ``probe'' and ``EPP'' features, which can be discharged via the application of \emph{Agree}, which I will take to be case discriminating, and \emph{Merge}, respectively. Feature discharge, I will additionally assume, proceeds according to the ObOp logic: if a given feature can be discharged, it must be, but in the event that conditions do not obtain for feature discharge, the derivation proceeds intact. %Concerning case, I adopt the dependent model, with the additional provisos that (i) case is computed in the syntax, and (ii) \emph{Agree} is case discriminating. 
+I conclude with a final assumption concerning the derivational order of operations. I will take feature discharge to be cyclic and sequential, but otherwise unordered (see \Next). In particular, if head H has features F, G, there is no preference for which is discharged first, and if both orders yield licit results, the derivation continues in parallel, potentially producing two licit outputs. 
+\ex. \textbf{Order of operations}:\\
+Feature discharge is:
+\a. \underline{Cyclic}: Only the features of the daughters of the root may be discharged
+\b. \underline{Sequential}: Given head H with features F, G, either F must be discharged before G or G must be discharged before F.
+\b. \underline{Unordered}: Given head H with features F, G, both orders of discharge F >> G and G >> F are, in principle, allowed.
+
+\subsection{Expletives and $v$/Voice}
+The eventual proposal will depend on the feature make up of the $v$/Voice head, as well as on the related issue of the basic merge position and case/agreement properties of expletives. I begin by considering the latter. Generally speaking, those languages with overt expletives can be broadly classified into two groups: those that allow expletives with transitive clauses, and those that restrict them to passive/unaccusative clauses. I illustrate the former category via Icelandic and the latter via English.
+\ex. 
+
+\ex.
+
+Our discussion will focus exclusively on the latter category of language, where I will follow \citet{richards05}, \citet{deal09} in assuming that the impossibility of transitive expletives is indicative that expletives may only be merged in Spec($v$P), not in Spec(TP) or Spec(CP). The absence of transitive-expletive constructions then follows if we assume that at most one DP can be introduced in Spec($v$P).
+\ex.\label{low-merge} \textbf{Expletives are merged low}:\\
+In languages without transitive expletives, expletives must be merged in Spec($v$P).
+
+I refer the reader to \citealt{richards05}, Deal 2009, and Wu 2017 for additional arguments in support of \Last, and will for now adopt it wholesale. 
+\begin{comment}
+In addition to capturing the absence of transitive-expletive constructions in English-type languages, I review two additional arguments from the literature supporting \Last. The first, due to Deal (2009), is that expletive insertion is blocked in English for those unaccusatives that denote a ``change of state'' (COS). Such COS predicates, Deal shows, involve a covert, external event-argument in Spec($v$P), thus exhausting this position and ruling out expletive insertion.
+\ex. \a. *There melted/disappeared/evaporated some ice cream.
+\b. There arrived/departed/came three men.
+ 
+The second argument is due to due to \citet{wu17}, and is is based on Hartman's analysis of \SC{MaxElide} effects (\citealt{hartman11}). Hartman argues, following \citet{takahashi05}, that ellipsis parallelism is sensitive to the presence of unbound variables, so that, roughly speaking, an XP cannot serve as the antecedent for ellipsis if it has an unbound variable. Assuming that movement traces are variables bound by $\lambda$-abstraction at the level of the sister of the moved phrase, it follows that if the antecedent for ellipsis contains a movement trace, it must extend to contain the sister of the moved phrase. 
+
+Hartman shows that this framework correctly predicts the impossibility of VP-ellipsis in instances of object \emph{wh}-movement, where only TP-ellipsis (sluicing) is possible.  
+\ex.\label{no-elip} \a. John ate something but I don't know what (*he did)
+\b. Sue borrowed a book. Guess which book (*he did)
+
+Granting that \emph{wh}-movement stops at Spec($v$P), the antecedent for ellipsis must be at least as big as $v$P, to include the binder of the lowerst \emph{wh}-trace. However, $v$P also contains the trace of the subject, which is presumably generated $v$P-internally and moved to TP. It follows that $v$P is not a suitable antecedent. The smallest constituent that contains binders for all of the traces is therefore the sister to the highest copy in the A$'$-chain, so that \SC{MaxElide}, the principle that says ellipsis must target the largest elidable sub-constituent of the antecedent, dictates that only TP ellipsis (sluicing) is possible.\\ 
+\ex. [\ \ \ \ \ \ \ \ \ \   \Tikzmark{end}{\phantom{X}}\hspace*{-1.2cm}something [1 [$_\text{TP}$\ \ \ \ \Tikzmark{end'}{\phantom{X}}\hspace*{-.6cm}John [2 \ldots $\underbrace{\text{[$_\text{$v$P}$ $t_1$ [3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$ ]]]]}}_\text{\xmark\ antecedent: $t_1$, $t_2$ free}$\hspace*{-3.9cm}\Tikzmark{int}{\phantom{X}}\hspace*{1.1cm}\Tikzmark{str'}{\phantom{X}}\hspace*{1.25cm}\Tikzmark{str}{\phantom{X}}\ \ \ \ \ \ ]]]]
+\DrawArrow{str}{int}{above}{ }[-1.2]
+\DrawArrow{int}{end}{above}{ }[-1.2]
+\DrawArrow{str'}{end'}{above}{ }[-1.6]
+%\b. [something [1 [$_\text{TP}$ John [2 \ldots [$_\text{$v$P}$ $t_1$ $\underbrace{\text{[3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$]]]}}_\text{\xmark\ antecedent: $t_2$ free}$]]]]]
+
+In this context, Wu argues that if expletives are merged above Spec($v$P), it should be possible to take $v$P as the antecedent for ellipsis in cases where a VP-internal DP undergoes A$'$-movement. VP-ellipsis should therefore be allowed in cases parallel to \LLast involving an expletive subject.
+%\ex. [\ \ \ \ \ \ \ \ \ \   \Tikzmark{end}{\phantom{X}}\hspace*{-1.2cm}several men [1 [$_\text{TP}$\ \ \ \ \Tikzmark{end'}{\phantom{X}}\hspace*{-.6cm}there [\ldots $\underbrace{\text{[$_\text{$v$P}$ $t_1$ [3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$ ]]]]}}_\text{\xmark\ antecedent: $t_1$, $t_2$ free}$\hspace*{-3.9cm}\Tikzmark{int}{\phantom{X}}\hspace*{1.1cm}\Tikzmark{str'}{\phantom{X}}\hspace*{1.25cm}\Tikzmark{str}{\phantom{X}}\ \ \ \ \ \ ]]]]
+%\DrawArrow{str}{int}{above}{ }[-1.2]
+%\DrawArrow{int}{end}{above}{ }[-1.2]
+%\DrawArrow{str'}{end'}{above}{ }[-1.6]
+This is not borne out: VP ellipsis is impossible here, as expected if expletives are merged low. 
+\ex. \a. There were several men invited, but I don't know exactly how many (*there were)
+\b. There have arrived several guests, but I have no idea how many (*there have)
+
+I will therefore assume that \ref{low-merge} is on the right track, and adopt it here. 
+\end{comment}
+
+As mentioned in fn.\ref{expl1}, the low-merge theory of expletives raises non-trivial questions concerning the ObOp treatment of canonical EPP effects. If expletives cannot be merged at T, it follows that the only way to satisfy EPP in languages like English is to move an XP already present in the structure. Our theory, as stated, therefore predicts that if there is no such lower XP, the EPP feature on T should be allowed to go unsatisfied. Such a case is arguably attested with predicates like \emph{seem}, whose CP complements cannot serve as Spec(TP) subjects. As \Next makes clear, however, the EPP must still be satisfied in such cases, namely by expletive \emph{it}.
+\ex. \a. *That John is upset seems to me.
+\b. *Seems to me that John is upset.
+\b. It seems to me that John is upset.
+ 
+We can readily capture this behavior if we assume that those languages showing canonical EPP effects also have an EPP feature on $v$. Given that expletive merger is possible at $v$, it will always be possible to satisfy this EPP feature, so Spec($v$P) will always be filled. This, in turn, ensures that T will always have a suitable target to attract to satisfy its EPP feature, capturing data like \Last. If we also grant that Spec($v$P) is an obligatory intermediate landing site for A$'$-movement (\citealt{chomsky86}; \citealt{fox99}; \citealt{chomsky01}; a.o.), so that it has an A$'$-EPP feature, then we can summarized the postulated feature make up on $v$ in EPP-languages as below. I have include $\varphi$ and A$'$-probe features in anticipation of the discussion to come, although nothing we have said so far requires they be present.\footnote{Note that I have made the simplifying assumption that the canonical EPP demands merger of category D. This is a simplification, even in the most rigid canonical-EPP languages like English, where locative PPs can satisfy EPP (\citealt{bresnan89}). I return to this issue in Section \ref{ }.}
+\ex. \textbf{Feature make up of $v$}:\\
+\ $v: \left[\begin{array}{lc} \text{Canonical EPP: } & \text{\fm{D}}\\
+\text{A$'$-EPP:} & \text{\fm{A$'$}}\\
+\text{$\varphi$-probe:} & [\varphi:\_]\\
+\text{A$'$-probe:} & [\text{A}':\_]
+\end{array} \right]$
+
+It's worth pointing out that \Last is intended to be constant across all varieties of $v$, transitive, unergative, passive, and unaccusative. I assume that $\theta$-theory and/or basic concerns of interpretability rule out illicit such as expletive subjects with transitive and unergative $v$ (see Section ?? for more discussion). 
+
+
+%A final comment is in order before moving on. Specifically, I will encode the fact that transitive $v$ must introduce a novel argument, i.e., that it discharges a $\theta$-role, directly in its Canonical-EPP feature. We can therefore assume that transitive $v$ has a slightly more specified feature structure, whereby the discharge of \fm{D} is directly linked to $\theta$-assignment. There are several ways of formally encoding this, with the choice among alternatives not particularly important here. For concreteness, I assume that DPs come specified with particular $\theta$-features in the lexicon, and that the EPP feature directly selects for the appropriate one. I will largely set this complication aside, although I briefly return to it in Section ??.  
+
+The final issue that will be relevant to the proposal is the case/agreement properties of expletives. We will be concerned in the remainder of the paper with two types of expletives: (i) the grammaticalization of the default 3rd person pronoun (\emph{it} in English, \emph{il} in French, \emph{det} in MSc, etc.); (ii) the grammaticalization of the distal locative proform (\emph{there} in English, \emph{der} in MSc, etc.). In the case of the default 3.\SC{sg} expletive, hereafter DefExp, I will adopt the widespread view that the expletive differs from the semantically contentful variety only in that it is semantically vacuous. Crucially, it maintains the formal syntactic  properties of its non-expletive counterpart, and is therefore capable both of discharging probe features and triggering dependent case on a lower DP. 
+%In both cases, I will adopt the minimal assumption that the expletive use of the relevant proform differs from the non-expletive use only in being semantically vacuous. Crucially, I will assume that both expletives maintain all the formal syntactic properties of their non-expletive counterparts. In the case of expletive \emph{it}, this means that the expletive interacts for case and agreement like any other pronoun, and is capable both of discharging probe features and triggering dependent case on a lower DP.
+In the case of the locative expletive, hereafter LocExp, I take a similar stance: LocExp is a semantically vacuous but formally identical version of the corresponding locative proform. It therefore maintains all the formal properties of a locative, so it can satisfy the EPP (\citealt{bresnan94}), but it interacts for Case/Agree as an oblique. Most importantly, this means that LocExp (i) cannot trigger $\varphi$-\emph{Agree} (locatives don't trigger \emph{Agree}; but see Bantu \ref{ }) and (ii) does not trigger dependent case on a lower DP (obliques don't trigger case valuation; see \citealt{bobaljik08}; \citealt{preminger14}; fn.\ref{ }). I further justify this treatment of LocExp in the appendix, but for now I take it as given. 
+\ex. \textbf{Expletive assumptions}:
+\a. \underline{DefExp}: the default 3.\SC{sg} expletive is a semantically vacuous but formally identical version of the default 3.\SC{sg} pronoun; it can discharge $\varphi$-probes and trigger case valuation on lower DPs
+\b. \underline{LocExp}: the locative expletive is a semantically vacuous but formally identical version of the locative proform; it cannot discharge $\varphi$-probes, and it does not trigger case valuation on lower DPs
+
+%I argue that this captures several properties of expletive \emph{there} prominent in the literature, many of which pose challenges to other analyses. There are also three conceptual arguments in its favor. First, it reduces the behavior of \emph{there} to the independently observable behavior of obliques. No exceptional mechanisms are needed. Second, it conceptually unifies \emph{there} with the other cross-linguistically common expletive, the default \SC{3.sg} pronoun. Both differ from their non-expletive use only in the absence of semantic content, not in formal features, and so can be taken to result from a uniform grammaticalization process: semantic bleaching that leaves formal features unchanged. Other analyses must also posit this process, \emph{and} add an additional reanalysis that alters \emph{there}'s formal status. Third, the proposal suggest why languages use locatives, rather than some other category, as expletives. Expletives must be able to satisfy EPP, a role that is generally limited to locatives and DPs. It is thus unsurprising that expletives are semantically vacuous elements that are formally locatives (\emph{there}) or DPs (\emph{it}), as proposed here. 
+%It is therefore unsurprising that expletives are semantically vacuous but syntactically active instantiations of the two categories of phrases that can serve as Spec(TP) subjects cross-linguistically: locatives and DPs.
+
+
+\section{Proposal}
+With these framework and structural/derivational assumptions in place, my proposal is that \emph{Agree} and \emph{Move/Merge} are related via the action of the following basic economy principle. 
+\ex. \textbf{Feature Maximality} (FM):\\
+Given head H with features [F$_1$] \ldots [F$_n$], if XP discharges [F$_i$], XP must also discharge each [F$_j$] that it is capable of.
+
+The core idea is that once a phrase XP has been selected as the target for a syntactic operation originating at head H, the relationship between H and XP must maximize to include all possible additional operations originating at H capable of targeting XP. This principle subsumes and extends the ``free rider'' property of \emph{Agree} (\citealt{chomsky95}, \citeyear{chomsky01}; \citealt{bruening01}; \citealt{rezac13}), and is closely related to the notion of economy proposed by \citet{pesetsky01}. 
+
+For a brief demonstration, suppose H is a head bearing an valued probing feature, say [$\varphi$:\_], and an EPP feature, say \fm{D}. By \Last, if [$\varphi$:\_] on H is discharged via \emph{Agree} with a $\varphi$-bearing target DP, then DP must also discharge \fm{D}, that is, DP must be merged with (a projection of) H. This has the effect that \emph{Agree} obligatorily triggers \emph{Move} if the head bearing the probe feature has an undischarged EPP feature. 
+%\ex. \a. Step 1: \emph{Agree}(H,DP,$\varphi$), discharge [$\varphi$:\_] 
+%\b. Step 2: \emph{Merge}(H,DP), discharge \fm{D} \hfill (by FM)\\\\
+%\ [$_\text{HP}$ \Tikzmark{g'}{DP} [$_\text{HP}$ \Tikzmark{p}{H} [\ldots[\ldots \Tikzmark{g}{DP} \ldots]]]]
+%\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+%\DrawArrow{g}{g'}{}{}[-1.2]\\
+Alternatively, suppose that \fm{D} on H is discharged by merging a new DP in the structure. Since \emph{Agree} is conditioned on c-command by the head containing the probe feature, a first-merged DP is not eligible to discharge the [$\varphi$:\_] on H, so only the EPP-feature is discharged. In such a scenario, a lower DP may then discharge the probing feature on H without undergoing obligatory movement, since the EPP feature has already been discharged. 
+
+This leads to the following prediction: on head H with both an EPP and a probe feature, \emph{Agree} triggers obligatory movement unless an additional XP has been merged to satisfy H's EPP feature. I know argue that this basic state of affairs obtains with the core PPA data in Romance and Mainland Scandinavian, confirming the prediction and supporting the existence of a principle like FM in the grammar. 
+
+\subsection{Capturing PPA: Core cases}
+I begin my discussion of PPA by considering the 
+
+
+- Italian \& French transitives
+- French \& Scandinavian passives/unaccusatives
+
+\subsection{Additional predictions}
+- Italian passives/unaccusatives/applicatives
+- French stylistic inversion
+- Scandinavian \emph{there}-expletives
+- Clitic and \emph{wh}-movement
+
+\section{Extending the account: the $\varphi$-\emph{Agree}/EPP correlation}
+
+\section{Conclusion}
+
+
+\bibliographystyle{apa}
+\setlength{\bibsep}{0pt}
+\bibliography{refs}
+
+
+
+\end{document}
+
+
+%\subsection{The challenge of PPA}
+%\textbf{I'm worried about going into detail here, because there are a variety of altentives that a clever reader could suggest. It's probably best just to give my proposal, then show how it accounts for the PPA effects in a large variety of cases.}
+%Given the common assumption that past participle agreement is triggered by unvalued $\varphi$-features on $v$ (\citealt{kayne89}; \citealt{chomsky95}), the basic distribution of PPA in languages like French, Standard Italian, Mainland Scandinavian (MSc) presents a unique challenge under the framework sketched above. I illustrate with French, where the challenges are easiest to enumerate. As mentioned in Section ??, PPA in French is limited to cases where the object has moved across the participle (with one exception to be discussed in Section ??). In transitive clauses, PPA thus only obtains if the object is a clitic or \emph{wh}-phrase that has moved across the participle.
+%Likewise, in passive and unaccusative clauses, PPA is limited to cases of full object promotion to subject position. Variants with expletive subjects and \emph{in situ} objects disallow PPA.
+%\ex. \a. 
+%\b. 
+%The challenge these data pose is that if $v$ has a $\varphi$-probe, and if the internal argument (IA) is accessible, $\varphi$-\emph{Agree} should be obligatory. It appears, however, to be conditioned on movement out of $v$P. Given our framework, the only conclusion is that IA is not accessible to the probe on $v$ when it is \emph{in situ}. Under the definition of \emph{Agree} adopted here, this inaccessibility has one of two possible origins: either IA is not local enough to $v$ for \emph{Agree} to take place, or IA is not case accessible. The first option is a non-starter. Given that there is no DP intervening between IA and $v$, the only possible source of intervention is the presence of a phase boundary between $v$ and IA. For this idea to have any traction, we'll have to assume the rigid version of the PIC, where phase heads are barriers to \emph{Agree}, which is not uncontroversial. 
+
+
+
+
+
+\section{Introduction}
+\begin{itemize}
+\item A conceptual question at the heart of modern syntactic theory:\blfootnote{$^1$For helpful discussion and comments, I thank Kenyon Branan, Justin Colley, Colin Davis, Amy Rose Deal, Danny Fox, Heidi Harley, Sabine Iatridou, Daniel Margulis, David Pesetsky, Norvin Richards, Ian Roberts, Michelle Yuan, and audiences at DP-60. For patient help with judgements, I thank Paul Marty, Sophie Moracchinni, Keny Chatain, Ben Storme, Daniel Margulis, and Ezer Raisin.}
+\begin{itemize}
+\item \emph{What is the correlation between $\varphi$-\emph{Agree} and movement?}
+\end{itemize}
+\item Early minimalism (e.g., \citealt{chomsky95}) postulated a strong correlation: $\varphi$-\emph{Agree} is the result of movement through specific syntactic positions 
+\ex. {\bf Specifier-head agreement}:\\
+If AgrX is an agreement head and DP a phrase bearing $\varphi$-features, morphological agreement obtains only if the following structural configuration obtains: 
+
+\ex. [$_\text{AgrXP}$ DP [$_\text{AgrXP}$ AgrX [\ldots \st{DP}\ldots]]]
+
+\item This is especially successful for agreement phenomena in the $v$P domain, e.g., past-participle agreement in Romance and Scandinavian, which is (mostly) contingent on movement across the participle (\citealt{kayne85}, \citeyear{kayne89b}; \citealt{christensen89})
+\ex.\label{ftppa} \emph{French}
+\ag. Jean n'a jamais fait({\bf *es}) {\bf ces} {\bf sottises}\\
+Jean \SC{neg}.have.\SC{3sg} never done\SC{.m.sg/*f.pl} these {stupid things}.\SC{f.pl}\\
+`Jean has never done these stupid things'
+\bg. Jean ne {\bf les} a jamais fait{\bf (es)}\\
+Jean \SC{neg} \SC{them.cl} have.\SC{3sg} never done-\SC{f.pl}\\
+`John has never done them.'\\
+(adopted from \citealt{belletti06})
+
+\item Modern minimalist theories usually assume, however, that $\varphi$-\emph{Agree} is formally dissociated from movement
+\ex. {\bf \emph{Agree}} (\citeauthor{chomsky00} \citeyear{chomsky00}, \citeyear{chomsky01}):\\
+An \emph{Agree} relation obtains between a head H and a phrase XP, provided:
+%\a.[(i)] Activity: H and XP are both active, i.e., bear unvalued features
+\a.[(i)] \ul{Matching}: XP bears valued features that are a superset of the unvalued features on H 
+\b.[(ii)] \ul{Locality}:\ \ \ \ There is no YP asymmetrically c-commanding XP that satisfies matching
+
+\item This formulation is based on a variety of cross-linguistic examples where $\varphi$-\emph{Agree} obtains in the absence of overt movement (some examles may involve covert movement; see \citealt{koopman06})
+\begin{itemize}
+\item Tsez (\citealt{polinsky01}), English (\citealt{chomsky00}, \citeyear{chomsky01}), Icelandic (\citealt{sigurdhsson96}, \citeyear{sigurdhsson08}; \citealt{boeckx08b}), Hindi-Urdu (\citealt{boeckx04}; \citealt{bhatt05}), Basque (\citealt{etxepare07}; \citealt{preminger09})
+\end{itemize}
+\exg. Ram-ne [{\bf rotii} khaa-nii] chaah-{\bf ii}\\
+Ram-\SC{erg} bread.\SC{f} eat-inf.\SC{f} want.\SC{perf.fsg}\\
+`Ram wanted to eat bread.'\\
+(\citealt{bhatt05}: 792)
+
+\item Cases where $\varphi$-\emph{Agree} appears to trigger movement are captured by a stipulated feature, either on the head or on the \emph{Agree}-probe itself\\
+%\begin{itemize}
+%\item Edge feature: if a head H (or $\varphi$-probe on H) has the edge-feature, $\varphi$-\emph{Agree} must trigger movement to Spec(HP) 
+%\end{itemize}\
+\item This state of affairs leaves unanswered a number of fundamental questions, both theoretical and technical
+\begin{itemize}
+\item How do we handle PPA and other apparent instances of Spec-Head agreement in a long-distance $\varphi$-\emph{Agree} framework?
+\item Can we predict the distribution of EPP features, i.e., which probes trigger movement, or must this be stipulated in an ad-hoc, language specific way?
+\item Why should agreement and movement ever be correlated in the first place? 
+\end{itemize}
+\item \underline{Goals for today}: Use PPA as a case study to probe the bigger questions surrounding $\varphi$-\emph{Agree} and \emph{Merge/Move}, in support of the following conclusion:
+\ex. \textbf{$\varphi$-\emph{Agree}/\emph{Merge} correlation}:\\
+Every $\varphi$-probe is associated with an EPP feature that forces \emph{Merge} to the triggering head 
+
+\item Consequences: 
+\begin{itemize}
+\item[$\Rightarrow$] All else being equal, $\varphi$-\emph{Agree} triggers movement 
+\begin{itemize}
+\item Spec-Head patterns result from interference effects on heads with a semantic requirement to introduce an argument: agreement trigger and argument compete for \emph{Merge}
+\end{itemize}
+\item[$\Rightarrow$] (At least some) null subject languages have EPP and null expletives
+\item[$\Rightarrow$] A new approach to expletive \emph{there}
+\item[$\Rightarrow$] Broad cross-linguistic empirical coverage of when \emph{Agree} can be ``long-distance''
+\end{itemize}
+\item Outline
+\begin{itemize}
+\item Past-participle agreement
+\begin{itemize}
+\item Challenges to long-distance-\emph{Agree} frameworks
+\item A new empirical generalization
+\item Capturing the data
+\end{itemize}
+\item A new treatment of expletive \emph{there}
+\item The \emph{Agree}/\emph{Merge} correlation
+\begin{itemize}
+\item Proposal
+\item Null subject languages have the EPP \& null expletives
+\item Predicting the cross-linguistic distribution of LDA
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\begin{comment}
+\item {\bf Proposal}: A satisfactory answer to these questions is possible with little more than the following three core ideas from modern minimalist syntax
+\begin{enumerate}
+\item \underline{Configurational Case, and Case discriminating \emph{Agree}} (\citealt{bobaljik08}; \citealt{preminger14})
+\begin{itemize}
+\item Case is valued on the basis of the presence or absence of other DPs in a local domain
+\ex. {\bf Case valuation}:\\
+Given a configuration as below, where DP$_1$ asymmetrically m-commands DP$_2$, and there is no phase head that m-commands DP$_2$ but not DP$_1$, value the case feature on DP$_2$\\\\\\
+\ [$_\text{$\alpha$}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}DP$_1$ [ \ldots \Tikzmark{str}{\phantom{D}}\hspace*{-.3cm}DP$_2$ \ldots]]
+\DrawCase{str}{end}{above}{Case valuation}[-1.5]
+ 
+\item $\varphi$-\emph{Agree} is case discriminating (\citealt{bobaljik08}; \citealt{preminger14}) 
+\ex. {\bf The Moravcsik Hierarchy}:\\
+unmarked case $>>$ dependent case $>>$ lexical/oblique case
+
+\end{itemize}
+\item \underline{Multi-tasking/maximal satisfaction} (\citealt{chomsky95}; \citealt{bruening01}; \citealt{pesetsky01}; \citealt{rezac13}; \citealt{urk15}; \citealt{richards16})
+\begin{itemize}
+\item There is a general preference for feature checking/unification to be maximal
+\ex. {\bf Multi-tasking}:\\
+Given head H and phrase XP, where XP can check/unify some subset $S$ of H's features, the derivation prefers checking/unification of all of $S$ over some proper subset of $S$
+
+\end{itemize}
+\item \underline{Feature-driven merge} (\citealt{adger03}; \citealt{collins03}; \citealt{lechner04}; \citealt{kobele06}; \citealt{pesetsky07}; \citealt{muller10})
+\begin{itemize}
+\item Unify \emph{Agree}, \emph{Internal Merge}, \emph{External Merge} as feature driven operations
+\item Two types of features:
+\begin{itemize}
+\item Structure building, which triggers \emph{Merge}: [$\circ$ F $\circ$] 
+\item Probing, which triggers \emph{Agree}: [$*$ F $*$] 
+\end{itemize}
+\end{itemize}
+\end{enumerate}
+\end{comment}
+
+\section{Past Participle Agreement}
+\subsection{The core challenge}
+\begin{itemize}
+\item \citet{kayne89b}: PPA is conditioned on a Spec-Head relation between participle, internal argument (IA)
+\ex.\label{shg} {\bf Spec-Head Generalization}: PPA is possible only if the object overtly moves through the specifier of the $\varphi$-feature hosting head (AgrO or $v$) 
+
+\item This captures the main pattern across most of Romance and Mainland Scandinavian (MSc)
+%\newpage
+%\ex.[\ref{ftppa}] \emph{French} 
+%\ag. Jean n'a jamais fait({\bf *es}) {\bf ces} {\bf sottises}\\
+%Jean \SC{neg}.have.\SC{3sg} never done-\SC{.m.sg/*f.sg} these {stupid things}.\SC{f.pl}\\
+%`Jean has never done these stupid things'
+%\bg. Jean ne {\bf les} a jamais fait{\bf (es)}\\
+%Jean \SC{neg} \SC{them.cl} have.\SC{3sg} never done-\SC{f.pl}\\
+%`John has never done them.'
+%\bg. {\bf Les} {\bf sottises} [que Jean n'a jamais fait{\bf (es)} $t$]\ldots\\
+%the {stupid things}.\SC{f.pl} that Jean \SC{neg}.have.\SC{3sg} never done-\SC{.f.sg}\\
+%`The stupid things that John has never done\ldots'\\ (adopted from \citealt{belletti06})
+\ex.[\ref{ftppa}] \emph{French} \ag. Jean n'a jamais fait({\bf *es}) {\bf ces} {\bf sottises}\\
+Jean \SC{neg}.have.\SC{3sg} never done\SC{.m.sg/*f.pl} these {stupid things}.\SC{f.pl}\\
+`Jean has never done these stupid things'
+\bg. Jean ne {\bf les} a jamais fait{\bf (es)}\\
+Jean \SC{neg} \SC{them.cl} have.\SC{3sg} never done-\SC{f.pl}\\
+`John has never done them.'\\
+%\bg. {\bf Ces} {\bf sottises} n'a jamais \'et\'e fait{\bf *(es)} par Jean\\
+%these {stupid things}.\SC{f.pl} \SC{neg}.have.\SC{3.sg} never been done.\SC{f.pl/*m.sg} by Jean\\
+%`These stupud things have never been done by Jean.'\\
+(adopted from \citealt{belletti06})
+
+\ex.\label{itppa} \emph{Italian}
+\ag. Ho mangiat-{\bf o}/*ta {\bf la} {\bf mela}.\\
+have.\SC{1.sg} eaten-\SC{m.sg}/*\SC{f.sg} the.\SC{f.sg} apple.\SC{f.sg}\\
+`I have eaten the apple'
+\bg. {\bf L}'ho mangiat-{\bf a}/*o.\\
+it.\SC{f.sg.cl}-have.\SC{1.sg} eaten-\SC{f.sg/*m.sg}\\
+`I have eaten it.'\\(D'Allessandro \& Roberts 2008)
+
+\ex. \label{swed1} \emph{Swedish} 
+\ag. Det har blivit skriv-{\bf et}/*na {\bf tre} {\bf b\"oker} om detta.\\
+\SC{expl} have been written-\SC{{n.sg}/*pl} three books on this\\
+`There have been three books written on this'
+\bg. {\bf Tre} {\bf b\"oker} har blivit skriv-{\bf na}/*et om detta.\\
+three books have been written-\SC{{pl}/*n.sg} on this\\
+(\citealt{holmberg01}: 86)
+
+\item The Spec-Head pattern poses a serious challenge modern theories of long-distance $\varphi$-\emph{Agree}, both \citeauthor{chomsky00}'s (\citeyear{chomsky00}, \citeyear{chomsky01}) \emph{uninterpretable features} view and \posscitet{preminger14} \emph{obligatory operations} theory
+\item \emph{Uninterpretable features/Case based model}
+\begin{itemize}
+\item $v$ (or some nearby head) has uninterpretable $\varphi$-features
+\item IAs are licensed via \emph{Agree} with $v$
+\ex. [$_\text{$v$P}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[u\varphi:\_]}$ [ \ldots [$_\text{VP}$ V\ \ \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[u\text{Case};i\varphi:7]}$]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+\item[{\bf Q}:] Why is overt valuation tied to movement across $v$ if IA must be agreed with to be licensed?
+\item We might try a story along these lines (Amy Rose Deal, p.c.):
+\begin{itemize}
+\item $\varphi$-features at $v$: i) have the EPP property; ii) are optional
+\item V (or some lower head) has the ability to assign inherent case
+\item \emph{In situ} objects are licensed by inherent case; moved objects are licensed by $\varphi$-\emph{Agree}
+\end{itemize}
+\item But what factors dictate when a $\varphi$-probe is optional? Inherent case + optional probes is just an ad-hoc mechanism for subverting case theory when we need it to not apply
+\end{itemize}
+\item \emph{Obligatory operations model}:
+\begin{itemize} 
+\item In the presence of a suitable goal, \emph{Agree} is obligatory (Preminger 2014)
+\item $v$ (or some nearby head) has unvalued $\varphi$-features
+\item IA is a suitable goal
+\ex. [$_\text{$v$P}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\_]}$ [ \ldots [$_\text{VP}$ V\ \ \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+\item[{\bf Q}:] Why is the presence of $\varphi$-features on $v$ conditioned on movement?
+\item Again, we might try something like this (Justin Colley, p.c.):
+\begin{itemize}
+\item There is an intervening phase head H between IA and $v$ 
+\item IA is only accessible to $v$ when attracted by H
+\item Both H and $v$ have the EPP property
+\end{itemize}
+\item Many instances of PPA are not associated with any discourse or other effects that might motivate the initial attraction to the intervening head, so this punts the problem to a lower domain
+\end{itemize}
+%\item \underline{Uninterpretable features model}: if PPA is a reflex of obligatory case assigning $\varphi$-\emph{Agree} between some functional head and the internal agrugment (IA) (\citealt{chomsky95}, \citeyear{chomsky00}, \citeyear{chomsky01}), why does it only manifest overtly if IA moves?  
+%\item \underline{Obligatory operations model}: If IA is generally accessible to $\varphi$-\emph{Agree} at $v$, why does agreement only manifest in the case of movement?
+%\end{itemize}
+%\item Various ad-hoc mechanisms might be invoked to save either theory; here are two:
+%\begin{itemize}
+%\item Inherent case: maybe IA is licensed by inherent case, and the $\varphi$-probe involved in PPA is (i) optional, and (ii) associated with an EPP feature
+%\begin{itemize}
+%\item What factors dictate when a $\varphi$-probe is optional? Inherent case + optional probes is just an ad-hoc mechanism for subverting case theory when we need it to not apply
+%\end{itemize}
+%\item Intervening heads: maybe there is an intervening phase head between IA and the head triggering PPA, so that IA is only accessible when attracted by the phase head 
+%\begin{itemize}
+%\item Many instances of PPA are not associated with any discourse or other effects that might motivate the initial attraction to the intervening head, so this just punts the problem to a lower domain
+%\end{itemize}
+%\end{itemize}
+\item Various other ad-hoc stipulations might be invoked, but at best we're left with a theory that describes these data but that further obscures the relationship between agreement and movement 
+\item[$\Rightarrow$] PPA data involve a perplexing degree of correlation between $\varphi$-\emph{Agree} and movement that is not readily captured by modern theories of \emph{Agree} 
+\end{itemize}
+\subsection{Previous approaches}
+\begin{itemize}
+\item \citet{dallessandro08} recognize the challenge PPA poses, in this case to the uninterpretable features view of $\varphi$-\emph{Agree}, and propose an intriguing solution
+\item {\bf Basic logic}: $\varphi$-\emph{Agree} always takes place between $v$ and IA, but it is only spelled out when the head hosting the agreement and the goal are in the same phase 
+\ex. {\bf Phasal Agreement Condition} (\citealt{dallessandro08}: 482)
+\a. Given an \emph{Agree} relation A between probe P and goal G, morphophonological agreement between P and G is realized iff P and G are contained in the complement of the minimal phase head H
+\b. XP is in the complement of a minimal phase head H there is no distinct phase H$'$ contained in XP whose complement YP contains P and G  
+
+\item Captures the data in Italian, where active past-participles raise to at least $v$, marked here by \emph{bene} (\citealt{cinque99}: 102-103, 146ff.) 
+\ex. Hanno (accolto) [$_\text{$v$P}$ bene (*accolto) il suo spettacolo solo loro]. \\
+have.\SC{pl} received { } well { } the his show only they \\
+%\bg. *Hanno [$_\text{$v$P}$ bene accolto il suo spettacolo solo loro].\\
+%have.\SC{pl} { } well received.\SC{m.sg} the his show only they\\
+`They alone have received his show well.'
+
+%\begin{itemize}
+%\item[$\Rightarrow$] (Active) $v$ is a phase, so the participle and the underlying object are not contained within the complement of the same minimal phase head (here $v$)%\footnote{There's something I don't fully understand here. I think that D\&R (2008) assume that $v$ probes the object, but then \LLast seems to predict that PPA should never be possible, even if the participle is \emph{in situ}. I think we need to say something like ``the head that the probe's features are exponed on must be in the complement of the same minimal phase head of the goal.''} 
+%\item[$\Rightarrow$] Spell-out of the \emph{Agree} relation between $v$ and DP is impossible unless the object raises 
+%\end{itemize}
+\ex. \a. [$_\text{TP}$ I [have [$_\text{$v$P}$ {\bf eaten$+v$} $\underbrace{\text{[$_\text{VP}$ \st{eaten} {\bf the apple}]}}_\text{spell-out domain}$]]]
+\b. [$_\text{CP}$ C $\underbrace{\text{[$_\text{TP}$ {\bf them}.\SC{cl} [$_\text{TP}$ I [have [$_\text{$v$P}$ {\bf eaten$+v$}}}_\text{spell-out domain} \underbrace{\text{[$_\text{VP}$ \st{eaten} \st{them}]]]]]}}_\text{spell-out domain}$]
+
+\item {\bf Challenge}: Cross-linguistically, PPA isn't conditioned on the height of the participle 
+\begin{itemize}
+\item French participle can't raise above \emph{bene/bien} (Pollock 1989; Cinque 1999), and doesn't even have to raise above VP level adverbs like \emph{presque, \`a peine, souvent}
+\begin{multicols}{2}
+\ex. \a. Il en a bien compris \`a peine la moiti\'e
+\b. *Il en a compris bien \`a peine la moiti\'e.\\
+(Cinque 1999: 46)
+
+\ex. \a. Guy a (presque) mis (presque) fin au conflit.
+\b. Jean a (\`a peine) vu (\`a peine) Marie.\\
+(Pollock 1989: 417)
+
+\end{multicols}
+\item But French participles never agree with an \emph{in situ} object
+\ex. \a. Jean a fait(*es) ces sottises.
+\b. [$_\text{TP}$ John [has [$_\text{$v$P}$ $v$ $\underbrace{\text{[$_\text{VP}$ {\bf done} {\bf these silly things}]}}_\text{spell-out domain}$]]]
+
+\item Conversely, Neapolitan participles must raise above \emph{bene}\footnote{Following Cinque (1999: 119), quantifiers floated from the object are above \emph{bene/bien}
+%\ex. Li ho spiegati (tutti) bene (*tutti) a Gianni.\\
+%`I have explained well all to Gianni'\\
+%(Cinque 1999: 119)
+}
+\exg. kill a (*tutt\textschwa) {kapit\textschwa} tutt e kkill {a:t\textschwa} nunn a {kapit\textschwa} njent\textschwa\\
+that-one has { } understood all and that-one other not has understood nothing\\ 
+`He understood everything and the other one didn't understand anything'\\
+(Loporcaro 2010: 235)
+
+\item Participle agreement is obligatory with an \emph{in situ} object in Neapolitan (I return to this fact in Section ??)
+\exg. {add\textyogh\textschwa} {k\textopeno tt\textschwa}/*{kwott\textschwa} a {past\textschwa}\\
+have.\SC{1.sg} cook\SC{ptcp.f}/cook\SC{ptcp.m} the\SC{.f.sg} pasta\SC{.f.sg}\\
+`I've cooked the pasta'\\
+(Lopocaro 2010: 226)
+
+\item[$\Rightarrow$] {\bf PPA is not correlated with the position of the participle}
+\end{itemize}
+\end{itemize}
+\subsection{A new empirical generalization}
+\begin{itemize}
+\item There is a systematic class of exceptions to Kayne's Spec-Head generalization, which manifest both language-internally and cross-linguistically
+\begin{itemize}
+\item PPA is possible with an \emph{in situ} object if and only if there is no DP merged higher in the clause that is itself capable of triggering $\varphi$-\emph{Agree} 
+\end{itemize}
+\item {\bf Proposal}: PPA in French, Standard Italian, Mainland Scandinavian adheres to the following condition
+\ex.\label{psh} {\bf PPA generalization}:\\
+PPA is licensed with IA if and only if
+\a. IA moves across the participle, \emph{or}
+\b. IA is \emph{in situ} and there is no higher DP merged in the clause that is itself capable of triggering agreement
+
+\end{itemize}
+\subsubsection{Italian}
+\begin{itemize}
+\item {\bf Transitive clauses}: PPA is contingent on movement of the object
+\begin{multicols}{2}
+\ex.[\ref{itppa}] 
+\ag.\hspace*{-.3cm}Ho mangiat-{\bf o}/*a {\bf la} {\bf mela}.\\
+\hspace*{-.3cm}have.\SC{1.sg} eaten-\SC{m.sg}/*\SC{f.sg} the {apple.\SC{f.sg}}\\
+\hspace*{-.3cm}`I have eaten the apple'
+\bg. {\bf L}'ho mangiat-{\bf a}/*o.\\
+it.\SC{f.sg.cl}-have.\SC{1.sg} eaten-\SC{f.sg/*m.sg}\\
+`I have eaten it.'\\(D'Allessandro \& Roberts 2008)
+%\bg. {\bf Quanti} {\bf libri} hai lett-{\bf o/*i}?\\
+%how.many.\SC{m.pl} books.\SC{m.pl} have.\SC{2.sg} read-\SC{m.sg/*m.pl}\\
+%`How many books have you read?'
+
+\end{multicols}
+\item {\bf 2 $\rightarrow$ 1 clauses}: PPA is obligatorily, independent of object movement
+\ex. 
+\ag. Sono entrat-{\bf i/*o} {\bf due} {\bf ladri} dalla finestra. \\
+are.\SC{pl} entered-\SC{m.pl/*m.sg} two robbers {from the} window\\
+`Two robbers entered from the window'
+\bg. {\bf Due} {\bf ladri} sono entrat-{\bf i/*o}  dalla finestra.\\
+two robbers are entered-\SC{m.pl/*m.sg} {from the} window\\
+`Two robbers entered from the window'\\
+(\citealt{belletti06}: ex. 34c)
+
+\ex. 
+\ag. In Turchia sono stati arrestat-{\bf i/*o} {\bf due} {\bf sindaci} {\bf curdi}\\
+in Turkey are.\SC{pl} been.\SC{m.pl} arrested.\SC{m.pl/*sg} two.\SC{m.pl} mayors.\SC{m.pl} Kurish.\SC{m.pl}\\
+`In Turkey there were two Kurdish mayors arrested.'
+\bg. {\bf alcuni} {\bf sindaci} sono stati arrestat-{\bf i/*o}\\
+some.\SC{m.pl} mayors.\SC{m.pl} are.\SC{pl} been.\SC{m.pl} arrested.\SC{m.pl/*sg}\\
+`Some mayors were arrested'\\
+(Google)
+
+\item Following \citeauthor{rizzi82} (1982: 151), post-verbal IA is \emph{in situ} in passives and unaccusatives: \emph{ne}-cliticization is required in order to proniminalize its NP component
+\begin{multicols}{2}
+\ex. \ag. Sono cadute alcune pietre. \\
+are.\SC{pl} fallen.\SC{f.pl} some.\SC{f.pl} stones.\SC{f.pl}\\
+`Some stones have fallen down'
+\bg. *(Ne) sono cadute [alcune $e$].\\
+{of.them} are.\SC{pl} fallen.\SC{f.pl} some.\SC{f.pl} \\
+`Some of them have fallen down'
+
+\end{multicols}
+\item Two analytical options given the absence of an overt expletive
+\begin{enumerate}
+\item Following \citet{chomsky81} (see Sheehan 2010 for a modern version of this proposal), posit a null expletive that behaves like English \emph{there}
+\item Following \citealt{barbosa95}, \citealt{alexiadou98}, \citealt{biberauer10}, assume that EPP on T is satisfied by verb raising, and that these languages systematically lack null expletives 
+\end{enumerate}
+\item Both options conform to the generalization, provided \emph{there} is not an agreement trigger (see Section ??)
+\end{itemize}
+\begin{comment}
+\subsubsection{Florentino \& Trentino}
+\begin{itemize}
+\item I don't have clear data for transitive clauses
+\item {\bf Basic Data II}: Unlike standard Italian, these languages license a null $\varphi$-specified expletive in passives, unaccusatives; PPA requires movement (Brandi \& Cordin 1989)
+%\item Many dialects of Italian differ minimally from the standard language in having (sometimes covert) $\varphi$-specified expletives 
+%\item {\bf Exemplary case}: closely related Florentino \& Trentino dialects
+\item Adopting the traditional analysis of these languages (see, e.g., Brandi \& Cordin 1989; Cardinaletti 1997; Robets 2008), I assume a $\varphi$-specified null expletive is present in all clauses without an overt subject
+\begin{itemize}
+\item In both languages, there is indirect evidence for the clitic from verb agreement patterns: in all cases where Spec(TP) is not overtly occupied by a DP, we have agreement at T with the default expletive
+\item In Florentino, the expletive can be diagnosed from the presence of an obligatory doubled expletive clitic, \emph{gli}, that surfaces anytime an overt DP is not in Spec(TP)
+\begin{itemize}
+\item Following the major modern treatements of clitic doubling (Nevins XXXX; Preimnger XXXX; Roberts 2010; Harazinov 2014), we can treat this clitic as the overt realization of \emph{Agree} with the null expletive
+\end{itemize}
+\end{itemize}
+\ex. \ag. Gli ha telefonato delle ragazze. \hfill \emph{Florentino}\\
+\SC{SCL.expl.3.sg} has.\SC{m.sg} called.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+\bg. Ha telefon\'a qualche putela \hfill \emph{Trentino}\\
+has.\SC{m.sg} called.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+`Some girls have called.'\\
+(Brandi \& Cordin 1989)
+
+\begin{multicols}{2}
+\ex. \emph{Florentino}:\\
+%\Tree [.TP \Tikzmark{p}{T} [.{\ldots} [.DP gli \emph{pro} ] ] ]
+\ [$_\text{TP}$ gli\ +\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\_]}$ [\ldots [ [$_\text{DP}$\ \Tikzmark{mv}{\phantom{D}}\hspace*{-.3cm}\st{gli} \Tikzmark{g}{}\emph{pro}$_\SC{expl}$] [\ldots EA \ldots IA]]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+%\DrawArrow{mv}{p}{above}{Clitic-doubling}[-1.2]\\
+
+\ex. \emph{Trentino}:\\
+%\Tree [.TP \Tikzmark{p}{T} [.{\ldots} [.DP gli \emph{pro} ] ] ]
+\ [$_\text{TP}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\_]}$ \ldots [ \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}\emph{pro}$_\SC{expl}$ [\ldots EA \ldots IA]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+\end{multicols}
+\item With passives and unaccusatives, these languages crucially lack PPA with \emph{in situ} objects, require it with fronted objects
+\ex. \emph{in situ} objects
+\ag. {\bf Gli} \`e venut{\bf o} delle ragazze. \hfill \emph{Florentino}\\
+\SC{scl.m.sg} is.\SC{m.sg} come.\SC{m.sg} some girls.\SC{f.pl}\\
+\bg. {\bf \emph{pro}} e' vegn{\bf \'u} qualche putela \hfill \emph{Trentino}\\
+\SC{expl} is.\SC{3.sg} come.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+`Some girls came.'\\
+(Brandi \& Cordin 1989: 121)
+
+\ex. Moved objects (followed by right dislocation)
+\ag. L'\`e venuta {la Maria}.\\
+\SC{SCL.3.f.sg}-\SC{be.sg} come.\SC{f.sg} Maria\\
+`Maria has come' \hfill{Florentino}
+\bg. L'\`e venuda {la Maria}.\\
+\SC{SCL.3.f.sg}-\SC{be.sg} come.\SC{f.sg} Maria\\
+`Maria has come' \hfill{Trentino}\\
+(Brandi \& Cordin 1989: fn.8)
+
+%\begin{itemize}
+%\item Both languages have obligatory clitic doubling of all pre-verbal subjects, default agreement with post-verbal subjects
+%\item Florentino has an obligatory expletive clitic in all cases where TP is not overtly filled
+%\end{itemize}
+%\ex. \ag. La Maria la parla \hfill \emph{Florentino}\\
+%the Maria \SC{SCL.3.f.sg} speak.\SC{3.sg}\\
+%\bg. La Maria la parla \hfill \emph{Trentino}\\
+%the Maria \SC{SCL.3.f.sg} speak.\SC{3.sg}\\
+%`Maria speaks.'\\
+%(Brandi \& Cordin 1989: 113)
+
+%\ex. \ag. Gli ha telefonato delle ragazze. \hfill \emph{Florentino}\\
+%\SC{SCL.expl.3.sg} has.\SC{m.sg} called.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+%\bg. Ha telefon\'a qualche putela \hfill \emph{Trentino}\\
+%has.\SC{m.sg} called.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+%`Some girls have called.'\\
+%(Brandi \& Cordin 1989)
+
+\item Cardinaletti (1997) points out a similar pattern in Bellunese, which like \emph{Florentino} has an overt expletive clitic in cases where TP is not overtly filled, and Paduan, which has an apparently optional expletive clitic (Cardinaletti 1997: 528)
+\ex. \ag. {\bf l}'\'e riv{\bf \`a} tre omini. \hfill \emph{Bellunese}\\
+\SC{scl.m.sg}-is.\SC{m.sg} arrived.\SC{sg} three men\\
+`There arrived three men.'
+\bg. Ieri {\bf \emph{pro}} sar\`a vign{\bf\`u} dentro dei omeni. \hfill \emph{Paduan}\\
+yesterday \SC{expl} be.\SC{fut.sg} come.\SC{sg} inside some men\\
+`Yesterday there came inside some men.'\\
+(\citealt{cardinaletti97})
+
+\item Again, taking expletive clitics to represent doubling of an $\varphi$-specified expletive \emph{pro}, these languages provide further evidence in favor of our generalization
+%\item $v$ introduces a $\varphi$-specified expletive $\Rightarrow$ no PPA
+\end{itemize}
+\end{comment}
+\subsubsection{French}
+\begin{itemize}
+\item {\bf Transitive clauses}: PPA is conditioned on overt movement; clitics and \emph{wh}-phrases optionally trigger it
+\ex.[\ref{ftppa}] \ag. Jean n'a jamais fait({\bf *es}) {\bf ces} {\bf sottises}\\
+Jean \SC{neg}.have.\SC{3sg} never done-\SC{.m.sg/*f.sg} these {stupid things}.\SC{f.pl}\\
+`Jean has never done these stupid things'
+\bg. Jean ne {\bf les} a jamais fait{\bf (es)}\\
+Jean \SC{neg} \SC{them.cl} have.\SC{3sg} never done-\SC{f.pl}\\
+`John has never done them.'
+\bg. {\bf Les} {\bf sottises} [que Jean n'a jamais fait{\bf (es)} $t$]\ldots\\
+the {stupid things}.\SC{f.pl} that Jean \SC{neg}.have.\SC{3sg} never done-\SC{.f.sg}\\
+`The stupid things that John has never done\ldots'\\ (adopted from \citealt{belletti06}) 
+
+\item {\bf 2 $\rightarrow$ 1 clauses}: \emph{in situ} IA is associated with a expletive-\emph{il}; PPA is blocked if the expletive is present, and obligatory if the object is promoted
+\begin{multicols}{2}
+\ex. 
+\ag. Il a \'et\'e fait{\bf (*es)} {\bf deux} {\bf erreurs}.\\
+it has been made.(*\SC{f.pl}) two errors\\
+``There have been three errors made''
+\b. {\bf Trois erreurs} a \'et\'e fait{\bf *(es)}.
+
+\ex. 
+\ag. Il est mort{(\bf *es)} {\bf trois} {\bf sauterelles}.\\
+it is died.(\SC{*pl}) three grasshoppers\\
+`There died three grasshoppers.'
+\b. {\bf Trois sauterelles} sont mort{\bf *(es)}.
+
+\end{multicols}
+\item {\bf Stylistic Inversion}: Post-verbal DPs licensed without an overt expletive in subjunctive, interrogative clauses
+\begin{itemize}
+\item \emph{en}-cliticization is possible (\citealt{kayne01}; see \Next) for many speakers with passive \& unaccusative predicates\footnote{The agreement on the participle is not with \emph{en}: \emph{en} does not trigger PPA for the speakers who accept \Last[b,c]. In general, PPA with \emph{en} is a marked option that is impossible for most speakers. \citet{belletti06} marks it as impossible, although, e.g., \citet{deprez98} has examples with agreement with \emph{en} in specially designed discourse environments. As a caveat, Paul has recently pointed out some strange behavior surrounding \emph{en} that calls for a closer look.}
+\begin{itemize}
+\item[$\Rightarrow$] Passive \& unaccusative objects can remain \emph{in situ}
+\end{itemize} 
+\ex. \ag. ?*le jour o\`u en$_1$ sont partis [trois $e_1$]\\
+the day when of.them.\SC{cl} are gone three\\
+`The day when three of them left.'\\
+(Kayne \& Pollock 2001)
+\bg. \%Il faut qu'en$_1$ aient \'et\'e condamn\'es au moins [trois $e_1$]\\
+it requires that-{of them} have.\SC{sbj.pl} been sentenced.\SC{pl} at least three\\
+`It's necessary that there have been at least three of them sentenced.'
+\bg. \%Il faut qu'en$_1$ aient repeintes au moins [trois $e_1$].\\
+it requires that-{of them} have.\SC{sbj.pl} repainted.\SC{pl} at least three\\
+`It's necessary that there have been at least three of them repainted.'\\
+(Keny Chatain, Paul Marty, p.c.)
+ 
+\item PPA is possible here, \emph{if the expletive is omitted}
+\ex. \ag. O\`u ont \'et\'e ex\'ecute{\bf s} {\bf des} {\bf innocents}?\\
+where have.\SC{pl} been executed.\SC{pl} some innocents\\
+` Where have there been some innocents executed?'\\
+(\citealt{cardinaletti97}: 521)
+\bg. O\`u a-t-il \'et\'e ex\'ecut({\bf *es}) {\bf des} {\bf innocents}?\\
+where have.\SC{sg}-it been executed.(*\SC{pl}) some innocents\\
+` Where have there been some innocents executed?'
+
+\ex. \ag. Il faut que aient \'et\'e  repeint{\bf es} {\bf trois} {\bf chaises}.\\
+it requires that have.\SC{sbj.pl} been repainted.\SC{pl} three chairs\\
+`It's necessary that there have been three chairs repainted.'
+\bg. Il faut qu'il ait \'et\'e  repeint{\bf *(es)} {\bf trois} {\bf chaises}.\\
+it requires that-it has.\SC{sbj.sg} been repainted.(*\SC{pl}) three chairs\\
+`It's necessary that there have been three chairs repainted.'\\
+(Paul Marty, p.c.)
+
+\ex. \ag. Il faut que soient mort{\bf es} {\bf trois} {\bf sauterelles}.\\
+it requires that are.\SC{sbj.pl} died.\SC{pl} three grasshoppers\\
+`It's necessary that three grasshoppers have died.'
+\bg. Il faut qu'il soit mort({\bf *es}) {\bf trois} {\bf sauterelles}.\\
+it requires that-it is.\SC{sbj.sg} died.(*\SC{pl}) three grasshoppers\\
+`It's necessary that three grasshoppers have died.'\\
+(Paul Marty, p.c.) 
+%\bg. Il faut que soient mort{\bf es} {\bf au} {\bf moins} {\bf trois} {\bf femmes}.\\
+%it requires that be.\SC{sbj.pl} left.\SC{f.pl} at least three women\\
+%`It's necessary that there have died at least three women.'\\
+%(Sophie Moracchini, Paul Marty p.c.)\\
+%(I'm sorry for this example; I needed an unaccusative where PPA is not just orthographic)
+
+\item[$\Rightarrow$] {\bf Eliminating expletive \emph{il} licenses PPA with an \emph{in situ} object} 
+\end{itemize}
+\item Two analytical options here (a full treatment is beyond the present scope):\footnote{Note that agreement on the auxiliary, which is strictly orthographic in this case, tracks the agreement on the participle, just as in Italian.}
+\begin{enumerate}
+\item Postulate that EPP on T is somehow relaxed in these environments
+\item Postulate a null expletive, of the \emph{there}-type, licensed only in these environments 
+\end{enumerate}
+\item Under either option, the data confirms to our generalization
+\end{itemize}
+\subsubsection{Mainland Scandinavian}
+\begin{itemize}
+\item {\bf Transitive clauses}: No PPA, according to \citet{christensen89}, \citet{holmberg01} 
+\begin{itemize}
+\item Neither author provides examples; these languages don't have object clitics, and objects cannot generally move across the verb (Holmberg's Generalization), so it's hard to test with other types of movement
+\item One possibility would be to construct a sentence with object-shift + VP topicalization
+\ex. [[$_\text{VP}$ V $t_1$]$_2$ [SBJ [\ldots OBJ$_1$ \ldots $t_2$]]]
+
+\item Difficult to test: 
+\begin{itemize}
+\item Swedish has PPA, but perfect participles and past participles have a different morphological form, and perfect participles are invariant
+\item Norwegian (most dialects) have the same perfect and past participle, but the dialects with PPA are rare
+\end{itemize}
+\end{itemize}
+\item {\bf 2 $\rightarrow$ 1 clauses}: \emph{in situ} objects must co-occur with an overt expletive, \emph{it}; PPA is blocked if the expletive is present, unless the object does short movement; PPA is obligatory with promotion to subject\footnote{Holmberg (2001: 86) provides the examples in \ref{swed1}-a,b and describes the pattern in \ref{swed1}-c as correct. Likewise,  
+Holmberg (2001: 104, ex. 40) provides \ref{nor1}-a,b but merely describes c.} 
+\begin{itemize}
+\item The only difference from French is the IA can do short movement across the object, but this conforms to Condition a of \ref{psh}
+\end{itemize}
+\ex.[\ref{swed1}] \emph{Swedish} 
+\ag. Det har blivit skriv-{\bf et}/*na {\bf tre} {\bf b\"oker} om detta.\\
+\SC{expl} have been written-\SC{{n.sg}/*pl} three book.\SC{pl} on this\\
+`There have been three books written on this'
+\bg. Det har blivit {\bf tre} {\bf b\"oker} skriv-{\bf na}/*et om detta\\
+\SC{expl} have been three book.\SC{pl} written-\SC{pl/*n.sg} on this\\
+\bg. {\bf Tre} {\bf b\"oker} har blivit skriv-{\bf na}/*et om detta.\\
+three book.\SC{pl} have been write.\SC{prtp}-\SC{{pl}/*n.sg} on this\\
+`Three books have been written on this'\\
+(\citealt{holmberg01}: 86)
+
+%\end{multicols}
+\newpage
+\ex.\label{nor1} \emph{Norwegian A} 
+\ag. Det har vorte skriv-{\bf e/*ne} {\bf mange} {\bf b\o ker} um dette.\\
+\SC{expl} has been written-\SC{pl/*sg} many book.\SC{pl} on this\\
+`There have been many books written on this'
+\bg. Det har vorte {\bf mange} {\bf b\o ker} skriv-{\bf ne/*e} um dette.\\
+\SC{expl} has been many book.\SC{pl} written-\SC{pl/*sg} on this\\
+%`There have been many books written on this'
+\bg. {\bf Mange} {\bf b\o ker} har vorte skriv-{\bf ne/*e} um dette\\
+many book.\SC{pl} have been written.\SC{pl/*n.sg} on this\\
+`Many books have been written on this.'\\
+(\citealt{holmberg01}: 104, ex. 40)
+
+\item {\bf 2 $\rightarrow$ 1 clauses, \emph{there}-expletives}: Several dialects of Norwegian also have a locative expletive in free variation with the \emph{it}-expletive; PPA is obligatory if \emph{there} is used (\citealt{christensen89}; \citealt{afarli08})
+\ex. \emph{Norwegian B}, (\emph{it}- and \emph{there}-type expletives)
+\ag. {\bf Det} vart skote-{\bf (*n)} {\bf ein} {\bf elg}\\
+it was shot.\SC{n.sg/*m.sg} an.\SC{m.sg} elk.\SC{m.sg}\\
+\bg. {\bf Der} vart skot{\bf en} {\bf ein} {\bf elg}\\
+there was shot.\SC{m.sg} an.\SC{m.sg} elk.\SC{m.sg}\\
+`There was an elk shot'\\
+(\r{A}farli 2008: 171)
+
+\ex. \ag. {\bf Det} er nett kom-{\bf e/*ne} {\bf nokre} {\bf gjester}\\
+it is just come.\SC{n.sg/*m.sg} some guests.\SC{pl}\\ 
+\bg. {\bf Der} er nett kom-{\bf ne/*e} {\bf nokre} {\bf gjester}\\
+there is just come.\SC{pl/*n.sg} some guests.\SC{pl}\\
+`There have just arrived some guests.'\\
+(Christensen \& Taraldsen 1989: 58)
+
+\begin{comment}
+\subsubsection{Icelandic}
+\begin{itemize}
+\item {\bf Basic Data}: \emph{in situ} objects of passive and unaccusative clauses are associated with a CP expletive; PPA is obligatory for \emph{in situ} and promoted objects
+\ex. \ag. Einhver nemandi hefur tekinn \'i b\'okasafninu.\\
+some student.\SC{nom.m.sg} has been taken.\SC{nom.m.sg} in library-the\\
+`Some student has been taken in the library.'
+\bg. {\textthorn a\dh} hefur {veri\dh} tekinn einhver nemandi \'i b\'okasafninu.\\
+\SC{expl} has been taken.\SC{nom.m.sg} some student.\SC{nom.m.sg} in library-the\\
+`There has been some student taken in the library.'\\
+(Thrainsson 2007: 272)
+
+\end{itemize}
+\end{comment}
+\end{itemize}
+\subsubsection{Summary}
+\begin{itemize}
+\item Kayne's Spec-Head generalization must be updated to include a class of PPA examples that apparently do not involve movement; the licensing factor seems to be whether there is a higher DP merged in the clause that is itself capable of triggering agreement
+\ex.[\ref{psh}] {\bf PPA generalization}:\\
+PPA is licensed with IA if and only if
+\a. IA moves across the participle (Spec-Head pattern), \emph{or}
+\b. IA is \emph{in situ} and there is no DP merged in the clause that is capable of triggering $\varphi$-agreement 
+
+\end{itemize}
+\subsection{Capturing the PPA generalization}
+\subsubsection{Framework Assumptions}
+\begin{itemize}
+\item[1.] \underline{Case and Agreement} 
+\ex. \textbf{Configurational Case, w/ Syntactic Valuation}:\\
+Given DP$_1$, DP$_2$, where DP$_1$ c-commands DP$_2$ and there is no phase head that m-commands DP$_2$ but not DP$_1$, value the case feature on DP$_2$%\\\\\\
+%\ [$_\text{$\alpha$}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}DP$_1$ [ \ldots \Tikzmark{str}{\phantom{D}}\hspace*{-.3cm}DP$_2$ \ldots]]
+%\DrawCase{str}{end}{above}{Case valuation}[-1.5]
+
+\ex. \textbf{$\varphi$-\emph{Agree} is case discriminating} (\citealt{bobaljik08}; \citealt{preminger14}): 
+\a. $\varphi$-\emph{Agree} must target the closest accessible DP
+\b. \emph{The Moravcsik Hierarchy}:\\
+unmarked case $>>$ dependent case $>>$ lexical/oblique case
+
+\ex. \textbf{$\varphi$-\emph{Agree} is fallible} (Preminger 2014):\\
+If \emph{Agree} is possible, it must take place, but failure to \emph{Agree} does not crash the derivation 
+
+\item[2.] \underline{Feature-driven merge} (not ultimately needed, but simplifies the discussion considerably) 
+\ex. \textbf{Feature-driven syntax} (\citealt{adger03}; \citealt{collins03}; \citealt{lechner04}; \citealt{kobele06}; \citealt{pesetsky07}; \citealt{muller10}):\\
+All syntactic operations are feature driven 
+\a. Structure building features trigger \emph{Merge}: [$\circ$ F $\circ$] 
+\b. Probing features trigger \emph{Agree}: [$*$ F $*$]
+
+%\item Familiar syntactic notions can be stated as below in this system, where A$'$-movement is driven by the optional addition of edge-features 
+%\item Summarizing: 
+%\ex. \textbf{Last resort}:\\ Every syntactic operation must discharge \fm{F} or \fa{F}.\\
+%(M\"uller 2010: 40)
+
+%\item Furthermore, we can state the Projection Principle as below, which will be relevant for our discussion
+\ex. \textbf{Projection Principle}:\\ Unvalued \fm{F} crashes the derivation\\
+(\citealt{chomsky81})
+
+%\item Finally, in this system we can treat A$'$-movement as driven by optional Edge-features added when needed
+\ex. \textbf{Edge-feature condition}:\\ An A$'$-feature set, $\{\fm{X},\fa{X}\}$ can be added to a phase head $\gamma$, if it affects the outcome\\
+(Chomsky 2001: 34; M\"uller 2010: 42)
+
+\item[3.] \underline{Multi-tasking/maximal satisfaction} (\citealt{chomsky95}; \citealt{bruening01}; \citealt{pesetsky01}; \citealt{rezac13}; \citealt{urk15}; \citealt{richards16}): 
+%\item There is a general preference for feature checking/unification to be maximal
+%\ex. {\bf Multi-tasking}:\\
+%Given head H and phrase XP, where XP can check/unify some subset $S$ of H's features, the derivation prefers checking/unification of all of $S$ over some proper subset of $S$
+
+%\item In the present context, I will rely on the following theorem of \Last
+\ex.\label{eppp} {\bf Multi-tasking} (EPP variety):\\
+Given a head H with undischarged \fm{X} and \fa{X} features, and given an XP in the c-command domain of H, if XP discharges \fa{X}, it must also discharge \fm{X} ($\approx$ \emph{Agree}(H,XP) triggers obligatory \emph{Merge}(XP,HP))
+
+\item[4.] \underline{Participle Agreement and expletives}:
+\ex. {\bf Expletives and PPA}: \emph{Romance, MSc}
+\a. Expletives are merged in the specifier of a passive or unaccusative $v$ (\citealt{richards05}; \citealt{deal09}; \citealt{wu16})
+\b. PPA is triggered by $\varphi$-features on $v$ (\citealt{kayne89};\citealt{chomsky95}) 
+
+\end{itemize}
+\subsubsection{Deriving the PPA Generalization}
+\begin{itemize}
+\item The behavior of PPA follows from the framework principles under the following proposal
+\ex.\label{caap} {\bf Proposal}:
+\a.\label{oblt} \emph{there}-expletives are not case competitors
+\b.\label{acC} Only unmarked case is accessible for $\varphi$-\emph{Agree} (\emph{French, Italian, MSc}):\\ 
+$\underbrace{\text{unmarked case}}_{\text{accessible for $\varphi$-Agreement}}$ $>>$ dependent case $>>$ lexical/oblique case
+
+\item Five cases to consider
+\begin{enumerate}[noitemsep]
+\item Transitive clause, \emph{in situ} object \hfill \xmark\ PPA 
+\item Passive/unaccusative predicate, promoted object \hfill $\checkmark$ PPA 
+\item Passive/unaccusative predicate, \emph{in situ} object, \emph{it}-type expletive \hfill \xmark\ PPA 
+\item Passive/unaccusative predicate, \emph{in situ} object, no higher Agr-DP \hfill $\checkmark$ PPA 
+\item Transitive clause, clitic/\emph{wh}-object \hfill $\checkmark$ PPA
+\end{enumerate}
+\end{itemize}
+
+\begin{comment}
+\subsubsection{An informal sketch}
+\begin{itemize}
+\item External arguments and \emph{it}-type expletives induce dependent case on the internal argument, rendering it inaccessible to $\varphi$-\emph{Agree}
+\begin{itemize}
+\item[$\Rightarrow$] {\bf C1}: PPA must take place before the external argument is merged
+\end{itemize} 
+\item If head H with unsatisfied EPP property \emph{Agree}s with XP that can satisfy EPP, XP must move to satisfy EPP 
+\begin{itemize}
+\item[$\Rightarrow$] {\bf C2}: Heads with EPP-property trigger movement unless the EPP is already satisfied   
+\end{itemize} 
+\item $v$ has the EPP property and triggers PPA
+\begin{itemize}
+\item {\bf C1} + {\bf C2} $\Rightarrow$ PPA triggers movement 
+\end{itemize}
+\item If $v$ lacks the EPP property (possibly Italian 2 $\rightarrow$ 1 clauses), C2 doesn't apply
+\begin{itemize}
+\item[$\Rightarrow$] PPA doesn't require movement
+\end{itemize}
+\item If $v$ merges with a \emph{there}-expletive, which is not a case competitor, C1 doesn't apply, so PPA can follow satisfaction of EPP
+\begin{itemize}
+\item[$\Rightarrow$] PPA doesn't require movement
+\end{itemize}
+\item {\bf On the horizon}: factoring out the notion of ``EPP-property''
+\end{itemize}
+\end{comment}
+
+\subsubsection{Transitive clauses, \emph{in situ} object; No PPA}
+\begin{itemize}
+\item After \emph{Merge}($v$,VP), $v$ has \fm{$\varphi$}, \fa{$\varphi$} features 
+\item Two options
+\begin{enumerate}
+\item Satisfy \fm{$\varphi$}: \emph{Merge}(EA,$v$P)
+\item Satisfy \fa{$\varphi$}: \emph{Agree}($v$,IA)
+\end{enumerate}
+\item \emph{Merge}(EA,$v$P)
+\begin{enumerate}
+\item \emph{Merge}(EA,$v$P), satisfy \fm{$\varphi$} 
+\item Value Case on IA
+\begin{itemize}
+\item[$\Rightarrow$] IA is inaccessible to subsequent \emph{Agree} operations 
+\end{itemize}
+\item \textbf{\underline{No PPA}!}
+\end{enumerate}
+\ex. \emph{Merge} EA (\fms{$\varphi$}), Case assignment, $\varphi$-\emph{Agree} blocked; \xmark\ PPA \\\\\\
+\ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}EA$_{[\varphi:5]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]
+\DrawCase{end}{g}{above}{Case Valuation}[-1.5]
+\DrawDotted{p}{g}{}{\xmark}[1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+\item \emph{Agree}($v$,IA)
+\begin{enumerate}
+\item \emph{Agree}($v$,IA), satisfy \fa{$\varphi$} on $v$
+\begin{itemize}
+\item By Multitasking \ref{eppp}, $\varphi$-\emph{Agree} with IA feeds \emph{Merge}(IA,$v$P) 
+\item (satisfaction of \fa{$\varphi$} must feed satisfaction of \fm{$\varphi$})
+\end{itemize}
+\item \emph{Merge}($v$,IA), satisfy \fm{$\varphi$}
+\item \textbf{\underline{Crash}!}
+\begin{itemize}
+\item No features left on $v$ to \emph{Merge} external argument, so the derivation crashes at LF 
+\end{itemize}
+%\ex. {\bf Object shift generalization}:\\
+%In English, French, MsC, Italian, full DP objects cannot overtly shift to Spec($v$P) in transitive clauses (pronouns, clitics are exempt)
+\end{enumerate}
+\ex. \emph{Agree} w/ IA (\fas{$\varphi$}); \emph{Move} IA (\fms{$\varphi$}); crash\\\\
+\ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]
+\DrawArrow{g}{end}{above}{}[-1.2]
+%\DrawDotted{p}{g}{}{\xmark}[1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+\item No way to introduce the external argument and license PPA
+\item[$\Rightarrow$] \textbf{PPA is impossible}
+
+\end{itemize}
+\subsubsection{Passive/unaccusative predicate, promoted object; $\checkmark$ PPA }
+\begin{itemize}
+\item After \emph{Merge}($v$,VP), $v$ has \fm{$\varphi$}, \fa{$\varphi$} features 
+\item IA can satisfy both features at once, by agreeing and moving
+\ex. \emph{Agree}($v$, IA) (\fas{$\varphi$}), \emph{Move} IA (\fms{$\varphi$}); $\checkmark$ PPA\\\\
+\ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:5]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+\DrawArrow{g}{end}{above}{}[-1.2]\\
+
+\item IA can then either be promoted further (French, Italian), or an expletive can be merged above it (MSc)
+\end{itemize}
+\subsubsection{Passive/unaccusative predicate, \emph{in situ} object, \emph{it}-type expletive; No PPA}
+\begin{itemize}
+\item The logic is essentially the same as in transitive clauses 
+\item \emph{il} can be merged to Spec($v$P) to satisfy \fm{$\varphi$} 
+\begin{itemize}
+\item Merge of \emph{il} induces dependent case on the object
+\item[$\Rightarrow$] No $\varphi$-\emph{Agree} with object, no PPA
+\end{itemize}
+\ex. \emph{Merge} \emph{il}, Case assignment, $\varphi$-\emph{Agree} blocked; \xmark\ PPA:\\\\\\
+\ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}il$_{[\varphi:5]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]
+\DrawCase{end}{g}{above}{Case Valuation}[-1.5]
+\DrawDotted{p}{g}{}{\xmark}[1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+%\item In Swedish and Norwegian, short movement is okay (with PPA); I assume auxiliary \emph{be}, which is present in all such cases, is an unaccusative $v$ that is capable of introducing expletives \citep{deal09}
+%\ex. \emph{Agree} w/ IA, \emph{Merge} IA; \emph{Merge} $v$, \emph{Merge} \emph{det}:\\\\\\
+%\ [$_\text{$v_\SC{be}$P}$ \Tikzmark{end'}{\phantom{D}}\hspace*{-.3cm}det$_{[\varphi:5]}$ [$_\text{$v_\SC{be}$}$ $v_\SC{be}$ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]]] 
+%\DrawCase{end'}{end}{above}{Case Valuation}[-1.2]
+%%\DrawArrow{g}{end}{above}{}[-1.2]
+%\DrawDotted{p}{g}{}{\xmark}[1.2]
+%\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+\end{itemize}
+\subsubsection{Passive/unaccusative predicate, \emph{there}-expletive; $\checkmark$ PPA}
+\begin{itemize}
+\item \emph{there} does not count as a case competitor
+\begin{itemize}
+\item[$\Rightarrow$] \emph{there} does not induce accusative on IA, so $\varphi$-\emph{Agree} is possible even after \emph{there} is merged
+\end{itemize}
+\ex. \emph{Merge}(\emph{there},$v$P) (\fms{$\varphi$}), no case assignment, \emph{Agree}($v$,IA) (\fas{$\varphi$}); $\checkmark$ PPA:\\\\\\
+\ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}there [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]\\
+\DrawCase{end}{g}{above}{No Case Valuation}[-1.5]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+
+%\item In Italian, we can either assume there is a null \emph{there}, or that passive/unaccusative $v$ (and T) lacks a \fm{$\varphi$}-feature, i.e., no EPP
+\end{itemize}
+\subsubsection{Optional PPA with clitics/\emph{wh}-phrases}
+\begin{itemize}
+\item Clitics and \emph{wh}-phrases, unlike normal objects, are attracted by something other than a $\varphi$-probe (see, e.g., Sportiche 1996)
+\begin{itemize}
+\item[$\Rightarrow$] At the point in the derivation where we have merged $v$, an additional option
+\end{itemize}
+\begin{enumerate}
+\item Satisfy \fm{$\varphi$}: \emph{Merge}(EA,$v$P)
+\item Satisfy \fa{$\varphi$}: \emph{Agree}($v$,IA)
+\item {\bf Add EF to $v$}
+\end{enumerate}
+\item Add EF to $v$
+\begin{enumerate}
+\item Add EF: \{\fm{wh}, \fa{wh}\}
+\item \emph{Agree}($v$,IA) satisfying \fa{wh}
+\item \emph{Merge}($v$,IA), satisfying \fm{wh} %\hfill by Multitasking \ref{eppp} 
+\item \emph{Merge}($v$,EA), satisfying \fm{$\varphi$}
+\end{enumerate}
+\ex. Add EF, \emph{Agree} w/ IA (\fas{EF}), \emph{Merge} IA (\fms{EF}), \emph{Merge} EA (\fms{$\varphi$}), assign case:\\\\
+%\a. \fm{$\varphi$}; \fa{$\varphi$} $\Rightarrow$ \fm{wh} $>>$ \fm{$\varphi$}; \fa{wh} $>>$ \fa{$\varphi$} $\Rightarrow$ \fms{wh} $>>$ \fm{$\varphi$}; \fas{wh} $>>$ \fa{$\varphi$} $\Rightarrow$ \fms{wh} $>>$ \fms{$\varphi$}; \fas{wh} $>>$ \fa{$\varphi$}\\
+\ [$_\text{$v$P}$ \Tikzmark{ea}{\phantom{D}}\hspace*{-.3cm}EA [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]]
+\DrawArrow{g}{end}{above}{}[-1.2]
+\DrawCase{ea}{end}{below}{Case valuation}[1.4]
+\DrawDotted{p}{g}{below}{A$'$-\emph{Agree}}[1.2]\\
+
+\item What about PPA? Why is it (optionally) possible here?\footnote{Given that we are permitting EF in our system, an additional question arises in the case of the simple transitive clause, namely why we cannot add an EF after attracting IA in order to introduce EA, producing a structure like in \Next. We could block this by postulating that EF are not allowed to introduce arguments, or we could follow M\"uller in postulating that EF must be added before \fm{$\varphi$} is used up.
+\ex. [$_\text{$v$P}$ EA [$_\text{$v$P}$ IA [$_\text{$v$P}$ \ldots]]]
+
+}
+\item {\bf Proposal}: \emph{Agree} for \fa{wh}/\fa{cl} can optionally generalize to include \fa{$\varphi$} by the ``free rider'' property on \emph{Agree} (\citealt{chomsky95}: 4.4.4, 4.5.2, \citeyear{chomsky01}: 15-19; \citealt{bruening01}: 5.7; \citealt{rezac13}: 310; \citeauthor{longenbaugh16} 2016) 
+\begin{itemize}
+\item We can \emph{Agree} with IA and not exhaust \fm{$\varphi$}, as long as we exhaust \fm{wh} or \fm{cl}
+\item This allows Merge EA, overcoming the challenge transitive clauses ordinarily pose to PPA 
+\end{itemize}
+\ex. Add EF, \emph{Agree} w/ IA (\fas{EF}, \fas{$\varphi$}), \emph{Merge} IA (\fms{EF}), \emph{Merge} EA (\fms{$\varphi$}):\\\\
+\ [$_\text{$v$P}$ \Tikzmark{ea}{\phantom{D}}\hspace*{-.3cm}EA [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]]
+\DrawArrow{g}{end}{above}{}[-1.2]
+%\DrawDotted{p}{g}{}{\xmark}[1.2]
+\DrawCase{ea}{end}{below}{Case valuation}[1.4]
+\DrawDotted{p}{g}{below}{$\varphi$/A$'$-\emph{Agree}}[1.2]\\\\
+
+\item As \citet{muller10} points out, an unusual property of this system is that A$'$-movement ``tucks in'' below the external argument; there is independent evidence from French/Italian supporting this view
+\begin{itemize}
+\item Sportiche (1988): movement through $v$P can ``float'' quantifiers 
+\item Quantifiers floated from the subject must always precede quantifiers floated from fronted object clitics, irrespective of PPA (Cinque 1999: 116)
+\begin{itemize}
+\item[$\Rightarrow$] Object movement always ``tucks in'' below EA
+\end{itemize}
+\end{itemize}
+\ex. \ag. Les etudiants$_1$ les$_2$ ont tous$_1$ toutes$_2$ fait(es).\\
+the students.\SC{m.pl} \SC{3.pl.cl} have.\SC{pl} all.\SC{m.pl} all.\SC{f.pl} done.\SC{f.pl}\\
+`All students have done them all.'
+\b. *Les etudiants$_1$ les$_2$ ont tous$_1$ toutes$_2$ fait(es)
+
+
+\begin{comment}
+\item This (potentially) captures the well know specificity requirements PPA with clitics and \emph{wh}-phrases (\citealt{deprez98}), given that mixed A/A$'$-movement is associated with specificity 
+\ex. \ag. Combien de fautes a-t-elle faites?\\
+how.many of mistakes has-\SC{3.f.sg} made.\SC{pl}\\
+`How many (amongst a known set of) mistakes has she made?'
+\bg. Combien de fautes a-t-elle fait?\\
+how.many of mistakes has-\SC{3.f.sg} made\\
+`What is the number of things that are mistakes and that she has made them'\\
+(\citealt{deprez98}: 8)
+
+\ex. \ag. Parmis ces toiles, combien {\bf en}-a-t-il volontairement d\'etruit({\bf es}).\\
+among these paintings how.many of.them.\SC{cl}-has.\SC{3.sg}-\SC{3.sg.m} voluntarily destroyed.\SC{pl}\\
+`Among these paintings, how many did he willingly destroy?'
+\bg. Plus vous avez recu de lettres, moins vous {\bf en} avez \'ecrit{\bf (*es)}.\\
+more \SC{2.pl} have.\SC{2.pl} received less \SC{2.pl} of.them.\SC{cl} have.\SC{2.pl} written.\SC{pl}\\
+`The more letters you received, the fewer you wrote.'\\
+(\citealt{deprez98}: 10f.)
+
+\end{comment}
+\end{itemize}
+\subsubsection{PPA \emph{in situ} languages}
+\begin{itemize}
+\item Closely related languages can vary in terms of whether dependent case is accessible for $\varphi$-\emph{Agree}
+\item Hindi-Urdu vs. Nepali
+\ex. \ag. raam-ne rotii khaayii thii\\
+Ram-\SC{erg.m} bread.\SC{f} eat.\SC{perf.f} be.\SC{pst.f}\\
+`Ram had eaten bread.' \hfill \emph{Hindi-Urdu}
+\bg. Maile yas pasal-m$\overline{\text{a}}$ patrik$\overline{\text{a}}$ kin-$\overline{\text{e}}$\\
+\SC{1.sg.erg} \SC{dem.obl} store-\SC{loc} newspaper.\SC{nom} buy.\SC{past-1sg}\\
+`I bought the newspaper in this store.' \hfill \emph{Nepali}\\
+(\citealt{bobaljik08}: 309f.)
+
+\item We predict that at least some Romance languages should make dependent case accessible for agreement
+\begin{itemize}
+\item[$\Rightarrow$] There should be languages with PPA with an \emph{in situ} object\footnote{According to \citeauthor{belletti90} (1990: 143f.) and \citeauthor{loporcaro10} (2010: 226), this is a marked pattern that is in the minority across Romance, but it is attested.}
+\end{itemize}
+
+%\item There are indeed isolated cases of such languages: Neapolitan \Next[a], Italian until the 19$^th$ century \Next[b], some Occitan \Next[c], Gascon \Next[d], and Catalan \Next[e] dialects (\citealt{belletti06}; \citealt{lopocaro16})
+\ex.\ag.{add\textyogh\textschwa} {k\textopeno tt\textschwa}/*{kwott\textschwa} a {past\textschwa}\\
+have.\SC{1.sg} cook\SC{ptcp.f}/cook\SC{ptcp.m} the\SC{.f.sg} pasta\SC{.f.sg}\\
+`I've cooked the pasta' \hfill \emph{Neapolitan}\\
+(\citealt{lopocaro16}: 806)
+\bg. Maria ha conosciute le ragazze.\\
+Maria has known.\SC{f.pl} the girls.\SC{f.pl}\\
+`Maria has known the girls.' \hfill \emph{18$^{th}$ Century (and earlier) Italian}\\
+(\citealt{belletti06}: 502)
+\bg. Abi\`o pla dubertos sas dos aurelhos.\\
+had.\SC{3.sg} very opened.\SC{f.pl} his.\SC{f.pl} two ears.\SC{f.pl}\\
+`He had well opened both ears.' \hfill \emph{Occitan}\\
+(\citealt{lopocaro16}: 808)
+\bg. Oun ass icados \'eras culh\'eros?\\
+where have.\SC{2.sg} place.\SC{f.pl} the.\SC{f.pl} spoons.\SC{f.pl}\\
+`Where did you put the spoons?' \hfill \emph{Gascon}\\
+(\citealt{lopocaro16}: 808)
+\bg. He trobats els amics.\\
+have.\SC{1.sg} found.\SC{m.pl} the.\SC{m.pl} friends.\SC{m.pl}\\
+`I have found the friends.' \hfill \emph{Catalan}\\
+(\citealt{lopocaro16}: 808)
+
+\item Here, PPA can take place after EA is merged, since dependent case is accessible
+\ex. \emph{Merge} EA (\fms{$\varphi$}), Case assignment, $\varphi$-\emph{Agree} (\fas{$\varphi$}):\\\\\\
+\ [$_\text{$v$P}$ \Tikzmark{end}{\phantom{D}}\hspace*{-.3cm}EA$_{[\varphi:5]}$ [$_\text{$v$P}$\ \ \hspace*{-.2cm}\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}$v_{[\varphi:\underline{7}]}$ [$_\text{VP}$ V \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA$_{[\varphi:7]}$]]]
+\DrawCase{end}{g}{above}{Case Valuation}[-1.5]
+%\DrawDotted{p}{g}{}{\xmark}[1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\\\
+
+\end{itemize}
+\section{A new theory of expletive \emph{there}}
+\subsection{Proposal}
+\begin{itemize}
+\item The analysis of PPA above hinged on the assumption that \emph{there} is not a case competitor
+\item Cross-linguistically, DPs with lexically oblique case do not tend to trigger case valuation on nearby DPs
+\exg. Morgum studentum liki verki\dh\\
+many student.\underline{\bf \SC{pl.dat}} like.\SC{3.sg} job.the.\underline{\bf \SC{nom}}\\
+`Many students like the job.' \hfill \emph{Icelandic}\\
+(\citealt{preminger14}: 130)
+
+\item \underline{This section}: defend a new treatment of locative expletives, centered on \Next
+\ex. {\bf Oblique \emph{there}}:\\
+Expletive \emph{there} is a semantically vacuous oblique pro-form 
+
+%\item This treatment of \emph{there} is conceptually appealing, and explains a number of mysterious properties of \emph{there} in English and cross-linguistically
+\end{itemize}
+\subsection{System basics}
+\begin{itemize}
+%\item I will now argue that the cross-linguistic distribution and behavior of \emph{there}-expletives follow immediately from the oblique-\emph{there} hypothesis
+\item A requisite assumption (that everybody needs)%(see, e.g., Sobin 1997; this will be revisited later)
+\ex.\label{prop2} {\bf Proposal}:\\
+English T must have its features valued in an \emph{Agree} relation (no default valuation at T)
+
+\item Defective Intervention: in many languages, oblique DPs block $\varphi$-\emph{Agree}, if though they are not themselves capable of triggering agreement
+\begin{itemize}
+\item Intervention is ameliorated by A-movement of the intervener to a position above the relevant probe
+\end{itemize}
+\ex. \emph{Icelandic}
+\ag. {t<a\dh} vir\dh-\underline{ist/*ast} \textbf{einhverri} \textbf{konu} \underline{myndirnar} vera lj\'otar.\\
+\SC{expl} seems-\SC{3.sg}/*\SC{3.pl} [some woman].\SC{dat} paintings.the.\SC{nom} be ugly\\
+`It seems to some woman that the paintings are ugly.'
+\bg. \textbf{Henni} vir\dh\underline{ast} \underline{myndirnar} vera lj\'otar.\\
+her.\SC{dat} seem.\SC{3.pl} paintings.the.\SC{nom} be ugly\\
+`It seems to her that the paintings are ugly.'\\
+(Sigur\dh sson \& Holmberg 2008: 252)
+
+\item As an oblique, we expect \emph{there} to do the same
+\item Basic derivation of a sentence with expletive \emph{there}:\footnote{In non-finite clauses, we need to adopt the traditional assumption that T has (potentially impoverished) $\varphi$-features that must be valued. This allows us to capture the distribution of \emph{there} in ECM infinitives, ACC-ing gerunds, \emph{for-to} infinitives (thanks to Ian Roberts for pointing out the later two cases).}
+\begin{itemize}
+\item[1.] \emph{there} is merged in Spec($v$P); as an oblique, it blocks \emph{Agree}(T,IA), which is obligatory, per \ref{prop2} 
+\item[2.] \emph{there} moves to TP to satisfy EPP; movement obviates intervention
+\item[3.] T agrees with IA, valuing its $\varphi$-features
+\end{itemize}
+\ex. \a. There have arrived three men.\\
+\b. [$_\text{TP}$\ \ \Tikzmark{end}{\phantom{D}}\hspace*{-.4cm}\emph{there} [$_\text{TP}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$ [\ \ \ldots\ \ [$_\text{$v$P}$ \Tikzmark{int}{\phantom{D}}\hspace*{-.3cm}\emph{there} [$_\text{$v$P}$ $v$ [\ \ \ldots\ \  \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA\ \  \ldots]]]]]]\\
+\DrawArrow{int}{end}{below}{}[-1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+
+\newpage
+\item \underline{Consequence 1}: $\varphi$-\emph{Agree} must be possible across passive/unaccusative $v$
+\begin{itemize}
+\item Either passive/unaccusative $v$ is not a phase; or $\varphi$-\emph{Agree} is not subject to the PIC (Boskovic 2002); or we have a ``weak'' PIC
+\item There is independent evidence that T can agree across $v$ in English
+\begin{itemize}
+\item In bi-clausal locative inversion, we get LD-\emph{Agree} without \emph{there}
+\end{itemize}
+\ex.\label{ldli} \a. From this trench are/??is certain to be recovered sacrificial offerings from the Aztec period.
+\b. On this roof are/??is believed to have been mounted ceremonial flags.
+\b. On top of this piano are/??is thought to have been perched carved wooden frames. 
+
+\ex. [$_\text{TP}$ From this trench [$_\text{TP}$\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$+are [$_\text{$v$P}$ certain [  \ldots [ to [$_\text{$v$P}$ be [$_\text{VP}$ discovered \ldots\ \ \ \ \ \ \ \ \Tikzmark{g}{\phantom{D}}\hspace*{-1cm}[three gems]  \ldots]]]]]]]\\
+%\DrawArrow{int}{end}{below}{}[-1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+
+\item[$\Rightarrow$] {We independently need to allow for $\varphi$-\emph{Agree} across passive and unaccusative $v$ in English}
+\end{itemize}
+\begin{comment}
+\item Finally, Legate's (2003) arguments for phase-hood mostly show that A$'$-movement optionally stops off at Spec($v$P)
+\begin{enumerate}
+\item A$'$-reconstruction can target passive/unaccusative $v$P
+\item QR can target passive/unaccusative $v$P
+\item A$'$-movement across passive/unaccusative $v$P can license parasitic gaps
+\end{enumerate}
+\item These data are consistent with a view where $v$ has optional A$'$-features but is not a phase
+\end{itemize}
+\end{comment}
+\item \underline{Consequence 2}: There can be at most one \emph{there} for each finite T(the \emph{too many \emph{there}s problem}):
+\begin{itemize}
+\item On all accounts that I am aware of, \Next and sentences like it must be blocked by independent stipulations
+\ex. \a. *There seem there to be three men in the room.
+\b. *There were there being there arrested three men.
+
+\item On the present account, any derivation with more than one \emph{there} will crash
+\begin{itemize}
+\item As an oblique, \emph{there} blocks $\varphi$-\emph{Agree} between T and the associate
+\item T in English must \emph{Agree}, as there is no mechanism of \emph{default} feature valuation
+\end{itemize}
+\ex. \a. *There are likely there to be three men arrested.\\
+\b. [$_\text{TP}$\ \ \Tikzmark{end}{\phantom{D}}\hspace*{-.4cm}\emph{there} [$_\text{TP}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\_]}$ [\ \ \ldots\ \ [$_\text{$v$P}$ \Tikzmark{int}{\phantom{D}}\hspace*{-.3cm}\emph{there} [$_\text{$v$P}$ $v$ [\ \ \ldots\ \  \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA\ \  \ldots]]]]]]\\
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+\DrawDotted{p}{g}{}{\xmark}[1.2]
+
+\end{itemize}
+\item \underline{Consequence 3}: \emph{there} must always have a DP associate in \emph{English}, but not necessarily in other languages 
+\begin{itemize}
+\item Given that finite T always bears $\varphi$-features, and given that default valuation is unavailable at English T, if \emph{there} is merged in Spec($v$P), there must be a lower DP made accessible to T 
+\ex. \a. *There was decided that we should hire Bill.
+\b. *There rained.
+
+\item \ref{prop2} is well known not to be active in many languages, so we predict the existence of languages where \emph{there} does not need an associate 
+\begin{itemize}
+\item This is borne out in other Germanic languages with overt \emph{there}-expletives, Danish, Dutch, Norwegian
+\end{itemize}
+\item Following \r{A}farli (2008), many Norwegian dialects allow the locative pronoun \emph{der}, `there,' to function as an expletive in free variation with \emph{det}, `it,' (meterological, unaccusative, passive)
+\begin{multicols}{2}
+\ex. \ag. Der/det reggne i Hunnedalen.\\
+there/it rained in Hunnedalen\\
+`It rained in Hunnedalen'
+\columnbreak
+\bg. Sn\o r der/det i Sirdalen?\\
+snow there/it in Sirdalen\\
+`Did it snow in Sirdalen?'
+
+\end{multicols}
+\item Following Ruys (2010), Dutch and Danish allow \emph{there} to take CP associates and to show up in impersonal passives with no underlying IA\footnote{We might also expect that the absence of obligatory $\varphi$-\emph{Agree} at T exempts these languages from the constraint on more than one \emph{there}. In Dutch, multiple \emph{there}'s are independently ruled out because \emph{there} is merged in Spec(CP) (Biberauer \& Richards 2005; Biberauer 2010). In Danish and Norwegian, we might indeed expect this to be borne out. I have been unable to test the prediction to date.} 
+\begin{multicols}{2}
+\ex. \ag. er wordt gedanst\\
+there is.\SC{pass} danced\\
+\bg. er wordt op Piet gerekend\\
+there is.\SC{pass} on Piet counted\\
+\bg. er wordt beweerd CP\\
+there is.\SC{pass} claimed CP\\
+(Ruys 2010: 143)
+
+\ex. \ag. at der er blevet danset.\\
+that there is been danced\\
+\bg. at der er blevet skudt p\r{a} b\r{a}den\\
+that there is been shot at boat.\SC{def}\\
+\bg. at der blev sagt CP\\
+that there was said CP\\
+(Ruys 2010: 143)
+
+\end{multicols}
+\end{itemize}
+\end{itemize}
+\subsection{Comparison with Deal (2009)}
+\begin{itemize}
+\item Arguably the most successful current account of expletive \emph{there} is Deal's (2009) proposal
+\item Core claims: 
+\begin{itemize}
+\item \emph{there} is merged in Spec($v$P) 
+\item All varieties of $v$ are strong phases that block $\varphi$-\emph{Agree} 
+\item \emph{there} is a $\varphi$-probe that probes its associate and ``ferries'' its $\varphi$-features to T 
+\end{itemize}
+\item A basic derivation
+\begin{enumerate}
+\item \emph{there} is merged in Spec($v$P)
+\item \emph{there} probes its associate and copies its $\varphi$-features
+\item T probes \emph{there}; the associate is itself embedded below $v$ and inaccessible 
+\item \emph{there} moves to Spec(TP)
+\end{enumerate}
+\ex. \a. There have arrived three men.\\
+\b. [$_\text{TP}$\ \ \Tikzmark{end}{\phantom{D}}\hspace*{-.4cm}\emph{there} [$_\text{TP}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$ [\ \ \ldots\ \ [$_\text{$v$P}$ \Tikzmark{int}{\phantom{D}}\hspace*{-.3cm}\emph{th}\hspace*{-.05cm}\Tikzmark{int'}{\phantom{D}}\hspace*{-.3cm}\emph{ere} [$_\text{$v$P}$ $v$ [\ \ \ldots\ \  \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA\ \  \ldots]]]]]]\\
+\DrawArrow{int}{end}{below}{}[-1.2]
+\DrawDotted{int'}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+\DrawDotted{p}{int}{below}{$\varphi$-\emph{Agree}}[1.2]
+
+%\item {\bf Proposal}: The \emph{oblique-there} account achieves broader empirical coverage with fewer stipulations
+\item Four domains of comparison
+\begin{enumerate}
+\item Conceptual simplicity
+\item LD \emph{Agree} 
+\item Cross-linguistic behavior of \emph{there}
+\item Too-many-\emph{there}s
+\end{enumerate}
+\item[1.] Conceptual simplicity
+\begin{itemize}
+\item Treating a DP as a probe in a downward agree framework is an innovation and carries the burden of proof
+\begin{itemize}
+\item What makes \emph{there} special in this regard? How did it become a probe? How do children learn it? Why don't we have other obvious cases of probing pronouns? 
+\end{itemize}
+\item On the \emph{oblique-there} account, \emph{there} is literally what it looks like, a semantically vacuous oblique pronoun; no unique theoretical or diachronic innovations are needed
+\end{itemize}
+\item[2.] LD-\emph{Agree}
+\begin{itemize}
+\item Core difference between \emph{there-as-probe} and \emph{oblique-there} approaches: is \emph{there} a probe or a barrier to $\varphi$-\emph{Agree} 
+\item At the heart of \emph{there-as-probe} proposal is the idea that passive/unaccusative $v$ is a barrier to $\varphi$-\emph{Agree}: this is what motivates treating \emph{there} as a probe that can ferry $\varphi$-features up the tree
+\item As we've seen, English permits LDA without \emph{there}
+\ex. In this room are/*is believed to be three of the most valuable gems ever discovered
+
+\item Once we grant that there is another way for $\varphi$-features to become accessible to matrix T, we lose the main argument for treating \emph{there} as a probe in the first place
+\end{itemize}
+\item[3.] Too-many-\emph{there}s
+\begin{itemize}
+\item On the \emph{oblique-there} account, this follows for free: intervening \emph{there}s block $\varphi$-\emph{Agree} between T and IA
+\item If \emph{there} is a probe, we have to make the additional stipulation that \emph{move} is preferred to \emph{merge}
+\item These ``economy'' based stipulations are empirically and conceptually suspect (see, e.g., Castillo 2009) 
+\item Moreover, assuming move-over-merge is computed locally, we predict that \emph{there} should be merged as late as possible in the derivation, which makes incorrect predictions in bi-clausal environments, absent additional stipulations 
+\begin{itemize}
+\item If a clause containing \emph{there} is embedded under a passivized ECM verb, \emph{there} must be merged in the embedded clause\footnote{A grammatical parse of \Last is possible if \emph{three men} heads a reduced relative
+\ex. \a. There were three men [$_\text{RC}$ Op believed to have been arrested $t$] 
+\b. *When were there three men believed [to have been arrested \st{when}] 
+
+}
+\item A locally computed move-over-merge along the lines suggested by Deal should wait to insert \emph{there} until the higher clause 
+\ex. *There were [\Tikzmark{end}{three men} [believed [to be [\Tikzmark{int}{\st{three}}\Tikzmark{int'}{\st{men}} [arrested \Tikzmark{str}{\st{three men}}]]]]].
+\DrawArrow{str}{int'}{}{}[-1.2]
+\DrawArrow{int}{end}{}{}[-1.2]
+
+\end{itemize}
+\end{itemize}
+\item[4.] Cross-linguistic behavior of \emph{there}
+\begin{itemize}
+\item In Norwegian, Dutch, it can be independently shown that \emph{there} is not an agreement trigger (we have already seen arguments in Norwegian)
+\exg. Er zijn/*is enkele katten in de tu\'in.\\
+\emph{there} are/*is some kats in the garden\\
+(de Hoop 1990: ex. 8) \hfill \emph{Dutch}
+
+\item But in both languages, \emph{there} can be used without a DP associate
+\ex. \ag. Der reggne i Hunnedalen.\\
+there rained in Hunnedalen\\
+`It rained in Hunnedalen' \hfill \emph{Norwegian}
+\bg. er wordt gedanst\\
+there is.\SC{pass} danced\\
+`There was dancing'
+
+\item The \emph{there}-as-probe account must either stipulate that the probe on \emph{there} can accept default valuation, or that \emph{there} is not a probe in all cases and T accepts default valuation
+\end{itemize}
+\end{itemize}
+
+\section{The $\varphi$-\emph{Agree/Merge} correlation}
+\begin{itemize}
+\item Questions we set out to answer:
+\begin{enumerate}
+\item How do we handle PPA and other apparent instances of Spec-Head agreement in a long-distance $\varphi$-\emph{Agree} framework?
+\item Can we predict the distribution of EPP features, i.e., which probes trigger movement, or must this be stipulated in an ad-hoc, language specific way?
+\item Why should agreement and movement ever be correlated in the first place? 
+\end{enumerate}
+\item Study of PPA yielded the following insights
+\begin{itemize}
+\item $\varphi$-\emph{Agree} at H feeds \emph{Merge} (move) if H must project a specifier \hfill \emph{multi-tasking (MT)}
+\item \emph{Merge} can block $\varphi$-\emph{Agree} with lower DPs \hfill \emph{case accessibility (CA)}
+\item[$\Rightarrow$] Long-distance \emph{Agree} at H with \fm{$\varphi$} requires \emph{Merge} w/ a non-case competitor \hfill \emph{MT+CA} 
+\end{itemize}
+\item This answers question 1., and suggests an answer to question 2., but only for those heads that have both \fm{$\varphi$} and \fa{$\varphi$} features, like $v$
+\item Nothing so far prevents \fa{$\varphi$}-features from existing in the absence of \fm{$\varphi$}-features, i.e., agreement that is completely unhinged from \emph{Merge/Move} 
+\item Italian presents a \emph{prima facie} case of this ``unhinged'' agreement
+\begin{itemize}
+\item In 2 $\rightarrow$ 1 clauses, PPA is obligatorily independent of object movement, and there is no overt expletive
+\ex. 
+\ag. Sono entrat-{\bf i/*o} {\bf due} {\bf ladri} dalla finestra.\\
+are.\SC{pl} entered-\SC{m.pl/*m.sg} two robbers {from the} window\\
+`Two robbers entered from the window'
+\bg. {\bf Due} {\bf ladri} sono entrat-{\bf i/*o}  dalla finestra.\\
+two robbers are entered-\SC{m.pl/*m.sg} {from the} window\\
+`Two robbers entered from the window'\\
+(\citealt{belletti06}: ex. 34c)
+
+\item Following Barbosa (1995) Alexiadou \& Anagnostopolou (1998), Italian T and passive/unaccusative $v$ might just a \fa{$\varphi$}-feature, no \fm{$\varphi$}\\
+\ex. [$_\text{TP}$ \Tikzmark{p1}{\phantom{D}}\hspace*{-.2cm}T(+$v$+V) [ \ldots [$_\text{$v$P}$ \Tikzmark{p2}{\phantom{D}}\hspace*{-.2cm}$v$(+V) [ \ldots [$_\text{VP}$ V \Tikzmark{g1}{\phantom{D}}\hspace*{-.30cm}DP]]]]]
+\DrawDotted{p1}{g1}{above}{$\varphi$-\emph{Agree}}[-1.2]
+\DrawDotted{p2}{g1}{below}{$\varphi$-\emph{Agree}}[1.2]\\
+
+\item If this is correct, $\varphi$-\emph{Agree} and \emph{Merge/Move} are only ever accidentally correlated
+\end{itemize}
+\item {\bf Proposal}: Generalizing the result from PPA, Italian and other null-subject languages have a normal EPP, and there is a tight correlation between $\varphi$-\emph{Agree} and \emph{Merge/Move}
+\ex.\label{macor} {\bf $\varphi$-Merge correlation}:\\
+\fa{$\varphi$} features are parasitic on \fm{$\varphi$} features
+
+\end{itemize} 
+\subsection{An argument for EPP and covert \emph{there} in Italian}
+\begin{itemize}
+\item The argument here follows the general contours of a very similar proposal by Sheehan (2010)
+\item Italian allows post-verbal subjects in wide-focus contexts with most unaccusative verbs (and some unergatives, which I set aside here)
+\item This alternates with a variant where the subject appears pre-verbally, in the canonical subject position (which can be shown to be an A-position in Italian)
+\begin{multicols}{2}
+\ex. 
+\a. What happened?
+\bg. \`E entrato Dante.\\
+is entered Dante\\
+\bg. \`E affondata la Attilio Regolo.\\
+is sunk the Attilio Regolo\\
+\bg. \`E morto Fellini.\\
+is died Fellini\\
+%\bg. Si \`e sciolta la neve.\\
+%\SC{refl.cl} is melted the snow\\
+(Pinto 1997: 20)
+
+\ex. \a. What happened?
+\bg. Dante \`e entrato\\
+Dante is entered\\
+\bg. La Atilio Regolo \`e affondata\\
+the Attilio Regolo is sunk\\
+\bg. Fellini \`e morto\\
+Fellini is died\\
+(Pinto 1997: 23)
+
+\end{multicols}
+\item There is no definiteness effect, but \emph{ne}-cliticization shows tht the object can at least optionally be \emph{in situ}
+%\ex. Unergative
+%\a. What happened?
+%\bg. Ha telefonato Dante.\\
+%has called Dante\\
+%\bg. In questa casa ha abitato Giacomo Leopardi.\\
+%in this house has lived Giacomo Leopardi\\
+ 
+\item Pinto (1997): The VS and SV word orders have a subtly different interpretation
+\begin{itemize} 
+\item VS: the location of the action/event is speaker oriented
+\item SV: the location of the action/event is neutral/not specified
+\end{itemize}
+\ex. \a. \`E arrivato Gianni\\
+`Gianni arrived here'
+\b. Gianni \`e arrivato\\
+`Gianni arrived (somewhere)'
+
+\item Following Pinto (1997), those verbs that allow VS in wide-focus contexts project a (optionally covert) locative argument 
+\begin{itemize}
+\item When covert, this argument gets an obligatorily deictic interpretation 
+\end{itemize}
+\item {\bf Observation 1} \citep{pinto97}: With passive and unaccusative predicates, a locative argument must be projected in VS but not SV orders
+%\ex. \a. Ha telefonato Dante.\\
+%`Dante has called here'
+%\b. Dante ha telefonato\\
+%`Dante has called (somewhere).'
+\item {\bf Observation 2} (Pinto 1997): If the locative is overtly realized, either it or its (definite) DP co-argument must move to pre-verbal position
+\ex. \ag. Che cosa \`e successo?\\
+what happened\\
+\b. ??\`E partito Dante da Firenze. \hfill ??[V DP PP]
+\b. Dante \`e partito da Firenze. \hfill $\checkmark$ [DP V PP]
+\b. Da Firenze \`e partito Dante. \hfill $\checkmark$ [PP V DP]
+
+%\ex. \ag. Che cosa \`e successo?\\
+%what happened\\
+%\bg. ??Ha telefonato Beatrice ai vigili del fuoco.\\
+%has called Beatrice to the fire brigade\\
+%\b. Beatrice ha telefonato ai vigili del fuoco.
+%\b. Ai vigili del fuoco ha telefonato Beatric. 
+
+\item {\bf Observation 3} (Sheehan 2010; Belletti 1988): both a locative PP and its DP co-argument can remain \emph{in situ} if the DP is non-specific
+\ex. \ag. \`E partito un uomo da questo Spedale.\\
+is left a man from this hospital\\
+(Google)
+\bg. Era finalmente arrivato qualche studente a lezione.\\
+arrived finally some student to the lecture\\
+(Belletti 1988)
+
+\item Taken together, these three observations furnish an argument for a traditional EPP and (null) oblique expletives in Italian 
+\begin{itemize}
+\item Observation 1: in VS orders, we must project a (null) locative argument, so that Spec(TP) is projected
+\ex. \a. [$_\text{TP}$ LOC [T \ldots [V DP]]] \hfill (obligatory \emph{speaker orientation})
+\b. [$_\text{TP}$ DP [T \ldots [V (LOC)]]] \hfill (optional \emph{speaker orientation}) 
+
+\item Observation 2: if LOC and DP arguments are overt, one must move to satisfy EPP\footnote{Norvin Richards (p.c.) suggests that this might have an explanation along the lines of Moro's ``dynamic antisymmetry,'' e.g., movement is forced because the VP cannot host two overt arguments. Observation 3 should be sufficient to rule this out, since both arguments can remain \emph{in situ} if the DP is non-specific.}
+\ex. \a. [$_\text{TP}$ LOC [T \ldots [V DP]]] \hfill ($\checkmark$ EPP)
+\b. [$_\text{TP}$ DP [T \ldots [V LOC]]] \hfill ($\checkmark$ EPP) 
+\b. [$_\text{TP}$ $\emptyset$ [T \ldots [V DP LOC]]] \hfill (\xmark\ EPP) 
+
+\item Observation 3: alternatively, we can insert a (null) oblique expletive to satisfy EPP, diagnosed by the presence of a characteristic definiteness effect\footnote{We make the prediction, which I have so far been unable to test, that V-DP orders should allow a non-speaker oriented interpretation if the DP is non-specific, since in this case we can use an expletive instead of a locative.} 
+\ex. [$_\text{TP}$ \SC{expl.obl} [T \ldots [V DP$_\SC{ns}$ LOC]]] \hfill ($\checkmark$ EPP, $\checkmark$ definiteness effect)
+
+\end{itemize}
+\item This analysis reduces the differences between Italian and English to the independent possibility for null-subjects in Italian
+\begin{itemize}
+\item We can observe essentially the same effects in English with locative-inversion
+\item V-DP order requires either a locative subject or a null expletive, which induces a definiteness effect
+\ex. \a. *Appeared John (out of the mist).
+\b. Out of the mist appeared John.
+\b. *There appeared John out of the mist.
+\b. There appeared a ghostly figure out of the mist.
+
+\end{itemize}
+\end{itemize}
+\subsection{Other null-subject languages}
+\subsubsection{Hebrew}
+\begin{itemize}
+\item We can replicate the Italian example almost verbatim in Hebrew (all data from Daniel Margulis, p.c.)
+\item With unaccusative verbs, VS order is associated with a deictic locative
+\ex. \ag. higi\textglotstop a ha-jeled\\
+arrived.\SC{3.m.sg} \SC{def}-child.\SC{m}\\
+`The child arrived (here).'
+\bg. ha-jeled higi\textglotstop a \\
+\SC{def}-child.\SC{m} arrived{3.m.sg}\\
+`The child arrived.'
+
+\item In a context with two logophoric centers, the speaker-oriented one must antecede the pronoun
+\exg.\# \\
+\\
+`Sue told me that arrived the children (here)'
+
+\item In wide scope, post-verbal subjects with an overt PP are marked if definite, fully acceptable if indefinite
+\ex. \a. What happened?
+\bg. \#higi\textglotstop a ha-jeled l-a-mesilea\\
+arrived.\SC{3.m.sg} \SC{def}-child.\SC{m} to-the-party\\
+`The child arrived at the party'
+\bg. higi\textglotstop a jeled l-a-mesilea\\
+arrived.\SC{3.m.sg} child.\SC{m} to-the-party\\
+`A child arrived at the party.'
+
+\end{itemize}
+\begin{comment}
+\subsubsection{Greek}
+\begin{itemize}
+\item Expletive triggers \SC{acc} case and agreement at T, as in French, in perfect conformity with the present system
+\ex. \ag. echi {[enan tomo]/*[enas tomos]} sto trapezi.\\
+has.\SC{3.sg} [one volume]$_\SC{acc/*nom}$ on the table\\
+`There is one volume on the table.'
+\bg. echi {[dio tomus]/*[dio tomos]} sto trapezi.\\
+has.\SC{3.sg} [two volume.\SC{pl}]$_\SC{acc/*nom}$ on the table\\
+`There is one volume on the table.'
+
+\item Unaccusatives and passives pattern differently, probably due to the possibility of scrambling
+
+\end{itemize}
+\end{comment}
+\subsubsection{Chiche\^{w}a}
+\begin{itemize}
+\item Three locative noun classes in Chich\^wa (and Bantu more generally; Buell 2007): 16, \emph{general place}; 17: \emph{specific place}; 18: \emph{enclosed place}
+\ex. \ag. Pa-m-sik\v{a}-pa p\'a-b\'adw-a nkhonya.\\
+{16-3-market-16 this} 16-\SC{sb.im.fut-}be.born-\SC{ind} 10.fist\\
+`At this market a fight is going to break out.' 
+\bg. Ku-mu-dzi ku-na-bw\'er-\'a a-l\v{e}ndo.\\
+17-3-village 17.\SC{sb-rec} \SC{pst-}come-\SC{ind} 2-visitor\\
+`To the village came visitors.'
+\bg. M-nkhal\v{a}ngo mw-a-khal-\'a m\'i-k\^ango.\\
+18-9.forest 18.\SC{sb-perf-}remain-\SC{ind} 4-lion\\
+`In the forest have remained lions.'\\
+(\citealt{bresnan89}: 9)
+
+\item Like most Bantun languages, Chiche\^{w}a shows agreement with the locative subject in locative inversion contexts
+\ex. \ag. Ku-mu-dzi ku-li chi-ts\^ime.\\
+17-3-village 17\SC{sb}-be 7-well\\
+`In the village is a well.'
+\bg. Chi-ts\^ime chi-li ku-mu-dzi\\
+7-well 7\SC{sb}-be 17-3-village\\
+`The well is in a village.'\\
+(Bresnan \& Kanerva: 1989, p.2)
+
+\item Also like most Bantu languages, Chiche\^wa is (i) a null subject language, (ii) freely permits VS order with passives \& unaccusatives, (iii) uses locative noun-class agreement in VS constructions 
+\item On its own, (iii) is already suggestive that Chiche\^wa has an EPP
+\begin{itemize}
+\item If the subject is not promoted, a null locative pronoun must move to Spec(TP)
+\end{itemize}
+\item But maybe locative agreement is simply the default in the language
+\begin{itemize}
+\item Following Perez (1983) and Demuth \& Mmusi (1997), many Bantu languages appear to use noun class 16 or 17 in all cases where English would use expletive \emph{it}
+\exg. K\'u-no-fungir-w-a kuri Sek\'uru v\'a-ngu \'ibenzi\\
+17-\SC{pr-}suspect-\SC{pass-ind} that {1\SC{a}.uncle} {\SC{2a}-my} fool\\
+`It is suspected that my uncle is a fool.'\\
+(Perez 1983)
+
+\item This suggests that class 16/17 might be some kind of morphological default used when agreement can't take place
+\end{itemize} 
+\item Chiche\^wa is (relatively) unique in furnishing an argument against this view:
+\begin{itemize}
+\item In VS structure, the agreement on the verb can be with any of the three locative noun classes
+\item The agreement is interpreted, suggesting there really is a covert locative pronoun fronting to Spec(TP)
+\end{itemize}
+\ex. \ag. P\'a-b\'adw-a nkhonya.\\
+{\SC{16 sb im fut-}be born-\SC{ind}} 10fist\\
+`There will be a fight (at some place).'
+\bg. Ku-na-bw\'e r-\'a a-l\v{e}ndo.\\
+17\SC{sb-rec pst-}come-\SC{ind} 2-visitor\\
+`There came visitors (in/to some place).'
+\bg. Mw-a-khal-\'a m\'i k\^ango.\\
+18\SC{sb-perf-}remain-\SC{in} 4-lion\\
+`There have remained lions (inside some place).'\\
+(Bresnan \& Kanerva: 1989, p. 11)
+
+\end{itemize}
+\subsubsection{Other cases}
+\begin{itemize}
+\item Following Sheehan (2010), Sabine Iatridou (p.c.), Brandi \& Cordin (1989), Saccon (1993), the argument can be replicated in at least the following languages
+\begin{itemize}
+\item Spanish
+\item European Portuguese
+\item Catalan
+\item Greek (??)
+\item Trentino
+\item Florentino
+\item Conegliano
+\end{itemize}
+
+%\item Sheehan (2010): as in Italian, VS order with passive \& unaccusative predicates in Spanish and EP shows a definiteness effect in VSPP but not VS orders
+%\ex. \a. What happened?
+%\bg. Chegou algu\'em/*John ao c\'egio \hspace*{5cm} European Portuguese\\
+%arrived someone/*John to-the school\\
+%\bg. Llegan 400 inmigrantes/*Juan a las costas espa\~nolas \hspace*{5cm} Spanish\\
+%arrive.\SC{pl} 400 immigrants/John to the coasts Spanish.\SC{pl} [check]\\
+%(Sheehan 2010)
+%\ex. \a. What happened?
+%\bg. Chegou o Jo\~ao \hspace*{5cm} European Portuguese\\
+%arrived the Jo\~ao \\
+%`John arrived (here)'
+%\b. Llegan Juan\\
+%arrived John\\
+%`John arrived (here)'
+%\item The data is complicated slightly in Spanish by the fact that adverbs may satisfy the EPP, so that in the presence of an overt, pre-verbal adverb, the data above do not show the definiteness effect, etc., (Sheehan 2010; Torrego 1984)
+\end{itemize}
+\begin{comment}
+\subsubsection{Italian Dialects}
+\begin{itemize}
+\item Unlike standard Italian, post-verbal subjects do not trigger agreement\footnote{There is a complication in that 1st/2nd person pronouns obligatorily trigger verb agreement, even if they are post-verbal; it may be that these pronouns are not licensed \emph{in situ} and must raise, given that locative inversion is generally incompatible with 1st/2nd person pronouns (Bresnan 1994; Birner \& Ward 1994)
+\ex.\ \\ \includegraphics[scale=.5]{bc1.png}
+
+}
+\ex. \ag. Gli ha telefonato delle ragazze. \hfill \emph{Florentino}\\
+\SC{SCL.expl.3.sg} has.\SC{m.sg} called.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+\bg. Ha telefon\'a qualche putela \hfill \emph{Trentino}\\
+has.\SC{m.sg} called.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+`Some girls have called.'\\
+(Brandi \& Cordin 1989)
+
+\item With passives and unaccusatives, these languages also lack PPA with \emph{in situ} objects, require it with fronted objects
+\ex. \emph{in situ} objects
+\ag. {\bf Gli} \`e venut{\bf o} delle ragazze. \hfill \emph{Florentino}\\
+\SC{scl.m.sg} is.\SC{m.sg} come.\SC{m.sg} some girls.\SC{f.pl}\\
+\bg. {\bf \emph{pro}} e' vegn{\bf \'u} qualche putela \hfill \emph{Trentino}\\
+\SC{expl} is.\SC{3.sg} come.\SC{m.sg} some.\SC{f.pl} girls.\SC{f.pl}\\
+`Some girls came.'\\
+(Brandi \& Cordin 1989: 121)
+
+\ex. Moved objects (followed by right dislocation)
+\ag. L'\`e venuta {la Maria}.\\
+\SC{SCL.3.f.sg}-\SC{be.sg} come.\SC{f.sg} Maria\\
+`Maria has come' \hfill{Florentino}
+\bg. L'\`e venuda {la Maria}.\\
+\SC{SCL.3.f.sg}-\SC{be.sg} come.\SC{f.sg} Maria\\
+`Maria has come' \hfill{Trentino}\\
+(Brandi \& Cordin 1989: fn.8)
+
+\item Cardinaletti (1997) points out a similar pattern in Bellunese, which like \emph{Florentino} has an overt expletive clitic in cases where TP is not overtly filled, and Paduan, which has an apparently optional expletive clitic (Cardinaletti 1997: 528)
+\ex. \ag. {\bf l}'\'e riv{\bf \`a} tre omini. \hfill \emph{Bellunese}\\
+\SC{scl.m.sg}-is.\SC{m.sg} arrived.\SC{sg} three men\\
+`There arrived three men.'
+\bg. Ieri {\bf \emph{pro}} sar\`a vign{\bf\`u} dentro dei omeni. \hfill \emph{Paduan}\\
+yesterday \SC{expl} be.\SC{fut.sg} come.\SC{sg} inside some men\\
+`Yesterday there came inside some men.'\\
+(\citealt{cardinaletti97})
+
+\item Again, taking expletive clitics to represent doubling of an $\varphi$-specified expletive \emph{pro}, these languages provide further evidence in favor of our generalization
+%\item $v$ introduces a $\varphi$-specified expletive $\Rightarrow$ no PPA
+\end{itemize}
+\end{comment}
+
+\subsection{Implications for long-distance agreement}
+\begin{itemize}
+\item The $\varphi$-\emph{Agree/Merge correlation}, in conjunction with the framework adopted here, makes very specific predictions concerning when long-distance agreement (LDA) should be possible 
+
+\item Take head H with \fm{$\varphi$} and \fa{$\varphi$}
+\begin{itemize}
+\item $\varphi$-\emph{Agree} at H feeds \emph{Merge} (move) to H \hfill \emph{multi-tasking (MT)}
+\begin{itemize}
+\item[$\Rightarrow$] LDA is only possible if H Merges with something it can't \emph{Agree} with
+\item[$\Rightarrow$] LDA requires first-\emph{Merge} to H, or attraction of a non-Agreeing element
+\end{itemize}
+\item First-\emph{Merge} to H may block $\varphi$-\emph{Agree} with lower DPs \hfill \emph{case accessibility (CA)}
+\end{itemize}
+\ex. {\bf Conditions on LDA}:\\
+Long-distance \emph{Agree} at H requires:
+\a.\label{nonc} (First)-\emph{Merge} w/ a non-case competitor 
+\b.\label{adep} Accessible dependent case \hfill \emph{MT+CA} 
+
+\item \textbf{Proposal}: These two conditions exhaustively capture the cross-linguistic instances of LDA
+\item Long-distance PPA
+\begin{itemize}
+\item {\bf Type A}: Standard Italian (and many many Italian languages), Mainland Scandinavian: long-distance PPA arises in, and only in, the following two configurations
+\begin{itemize}
+\item Both cases involve Merge of a non-case competitor, per \ref{nonc}
+\end{itemize}
+\exg. {\bf Due} {\bf ladri} sono entrat-{\bf i/*o}  dalla finestra.\\
+two robbers are entered-\SC{m.pl/*m.sg} {from the} window\\
+`Two robbers entered from the window'\\
+(\citealt{belletti06}: ex. 34c)
+
+\ex. \a. [$_\text{$v$P}$ \SC{expl.obl} [$_\text{$v$P}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.25cm}$v$ [\ldots \Tikzmark{g}{IA} \ldots]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\\\ 
+\b. [$_\text{$v$P}$ \SC{loc} [$_\text{$v$P}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.25cm}$v$ [\ldots \Tikzmark{g}{IA} \ldots \SC{\st{loc}} \ldots]]] 
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\ 
+
+\item \textbf{Type B}: Neapolitan, 18$^{th}$ Century Italian, Occitan, Gascon, Catalan: PPA with all \emph{in situ} objects
+\begin{itemize}
+\item Dependent case is accessible in these languages, per \ref{adep}
+\end{itemize}
+\exg.{add\textyogh\textschwa} \textbf{k\textopeno tt\textschwa}/*{kwott\textschwa} \textbf{a} \textbf{past\textschwa}\\
+have.\SC{1.sg} cook\SC{.ptcp.f}/cook\SC{ptcp.m} the\SC{.f.sg} pasta\SC{.f.sg}\\
+`I cooked the pasta' \hfill \emph{Neapolitan}\\
+(\citealt{lopocaro16}: 806)
+
+
+\ex. [$_\text{$v$P}$ EA/there/it [$_\text{$v$P}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.25cm}$v$ [\ldots \Tikzmark{g}{IA} \ldots]]]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]\\ 
+
+\end{itemize}
+\item English-type LDA (locative inversion, expletive \emph{there})
+\begin{itemize}
+\item Also: French, Italian, Bantu, Spanish, Hebrew
+\item Oblique expletive or locative is attracted by T, satisfying \fm{$\varphi$}, per \ref{nonc}
+\item \fa{$\varphi$} on T probes closest DP 
+\ex. From this trench (there) \textbf{are}/??is sure to be recovered \textbf{sacrificial offerings from the Aztec period}.\\
+
+\ex. [$_\text{TP}$\ \ \Tikzmark{end}{\phantom{D}}\hspace*{-.4cm}\SC{expl.obl} [$_\text{TP}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$ [\ \ \ldots\ \ [$_\text{$v$P}$ \Tikzmark{int}{\phantom{D}}\hspace*{-.3cm}\SC{expl}\hspace*{-.05cm}\Tikzmark{int'}{\phantom{D}}\hspace*{-.3cm}\SC{.obl} [$_\text{$v$P}$ $v$ [\ \ \ldots\ \  \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA\ \  \ldots]]]]]]\\
+\DrawArrow{int}{end}{below}{}[-1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+
+\end{itemize}
+\newpage
+\item Icelandic type LDA (oblique subject)
+\begin{itemize}
+\item We see the system at work more transparently here
+\item LDA configurations involve a dative subject and agreement with a post-verbal nominative
+\item Dative moves to Spec(TP) to satisfy \fm{$\varphi$}, per \ref{nonc}
+\item Dative fails to induce dependent case: closest DP is nominative
+\item \fa{$\varphi$} probes nominative 
+\exg. Henni vir\dh\textbf{ast} \textbf{myndirnar} vera lj\'otar.\\
+her.\SC{dat} seem.\SC{3.pl} paintings.the.\SC{nom} be ugly\\
+`It seems to her that the paintings are ugly.'\\
+(Sigur\dh sson \& Holmberg 2008: 252)\\
+
+\ex. [$_\text{TP}$\ \ \Tikzmark{end}{\phantom{D}}\hspace*{-.4cm}\SC{dat} [$_\text{TP}$ \Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$ [\ \ \ldots\ \ [$_\text{$v$P}$ \Tikzmark{int}{\phantom{D}}\hspace*{-.3cm}\SC{dat} [$_\text{$v$P}$ $v$ [\ \ \ldots\ \  \Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}IA\ \  \ldots]]]]]]\\
+\DrawArrow{int}{end}{below}{}[-1.2]
+\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+
+\end{itemize}
+
+\item Ergative-type LDA (Basque, Hindi-Urdu, Tsez)
+\begin{itemize}
+\item In ergative/absoltive alignment systems, dependent case is induced on the structurally superior of two DPs
+\ex. \textbf{Configurational Case} (ergative):\\
+Given DP$_1$, DP$_2$, where DP$_1$ c-commands DP$_2$ and there is no phase head that m-commands DP$_2$ but not DP$_1$, value the case feature on DP$_1$ \st{DP$_2$}
+
+\item The famous cases of LDA in Tsez, Hindi-Urdu involve an ergative subject
+\item Ergative DP saturates \fm{$\varphi$} on T (or some other head)
+\item Because lower object is accessible, \fa{$\varphi$} can probe it
+\exg. Ram-ne [{\bf rotii} khaa-nii] chaah-{\bf ii}\\
+Ram-\SC{erg} bread.\SC{f} eat-inf.\SC{f} want.\SC{perf.fsg}\\
+`Ram wanted to eat bread.'\\
+(\citealt{bhatt05}: 792)
+
+\exg. Enir [{u\v{z}$\overline{\text{a}}$} \textbf{magalu} b$\overline{\text{a}}$c'ruli] \textbf{b}-iyxo\\
+mother boy bread.\SC{iii.abs} ate \SC{iii}-know\\
+`The mother knows the boy ate the bread.'\\
+(Potsdam \& Polinsky 2001)
+ 
+\end{itemize}
+\end{itemize}
+
+\section{Conclusions}
+\begin{itemize}
+\item The modern theory of \emph{Agree}, which formally dissociates it from movement, faces empirical and conceptual challenges
+\begin{itemize}
+\item Failure to capture Spec-Head agreement patterns
+\item Preponderance of ad-hoc `EPP' features
+\item No formal encoding of pervasive cross-linguistic trends in long-distance agreement 
+\end{itemize}
+\item \textbf{Proposal}: These challenges can be overcome if we abandon the notion that \emph{Agree} and \emph{Merge} are formally dissociated
+\ex. {\bf $\varphi$-Merge correlation}:\\
+\fa{$\varphi$} features are parasitic on \fm{$\varphi$} features
+
+\newpage
+\item \textbf{Results}:
+\begin{enumerate}
+\item A theory of PPA that captures the full empirical generalization in \ref{psh} 
+\ex.[\ref{psh}] {\bf PPA generalization}:\\
+PPA is licensed with IA if and only if
+\a. IA moves across the participle, or
+\b. IA is \emph{in situ} and there is no higher DP merged in the clause that is capable of triggering agreement 
+
+\item A return to view that null-subject languages are different only in allowing phonologically null pronouns, not in their formal syntactic properties (cf. Chomsky 1981)
+\begin{itemize}
+\item All null-subject languages with $\varphi$-\emph{Agree} at T have both a traditional EPP and null expletives
+\end{itemize}
+\item A new approach to expletive \emph{there}
+\begin{itemize}
+\item \emph{there} is exactly what it looks like on the surface: a semantically vacuous oblique pronoun
+\end{itemize}
+\item An new generalization concerning when \emph{Agree} can take place in the absence of \emph{Move} that covers the main cases documented in the literature
+\end{enumerate}
+\end{itemize}
+
+\newpage
+{\small %\footnotesize
+\bibliographystyle{apa}
+\setlength{\bibsep}{0pt}
+\bibliography{refs}
+}
+
+\newpage
+\section*{Appendix}
+\subsection{Against alternative treatments of locative inversion}
+\begin{itemize}
+\item An alternative we need to rule out: there is a covert \emph{there} involved in locative inversion, so these examples don't involve independent evidence for cross-clausal $\varphi$-\emph{Agree} in English
+\item An LI example would have a derivation along the following lines
+\ex. \ex. \a. Into the room appeared to walk John.\\
+\b. [$_\text{TopP}$ \Tikzmark{pp}{\phantom{D}}\hspace*{-.3cm}PP  [$_\text{TP}$\  \Tikzmark{gem}{\phantom{D}}\hspace*{-.3cm}\st{there} [\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$+are [$_\text{$v$P}$ thought [ \ \ \ldots\ [ to [$_\text{$v$P}$ \Tikzmark{there}{\phantom{D}}\hspace*{-.4cm}there [$_\text{$v$P}$ be [\Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}DP\ \Tikzmark{pp2}{\phantom{D}}\hspace*{-.3cm}\st{PP}]]]]]]]]]\\
+%\DrawArrow{int}{end}{below}{}[-1.2]
+%\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+\DrawArrow{there}{gem}{below}{}[1.2]
+%\DrawArrow{gem}{gem2}{below}{}[-1.2]
+\DrawArrow{pp2}{pp}{below}{}[2.2]
+
+\item \citet{bresnan94} catalogues several arguments against this kind of treatment of LI; I repeat two of the clearest arguments, along with two of my own
+\begin{enumerate}
+\item LI induces \emph{that}-trace effects, suggesting the PP occupies subject position (\citealt{bresnan79})
+\ex. \a. That bunch of gorillas, Terry claims (*that) $t$ walked into the room.
+\b. Into the room Terry claims (*that) $t$ walked a bunch of gorillas.
+
+\item There are LI sentences that disallow an overt \emph{there} (\citealt{bresnan94})
+\ex. \a. Into the room (*there) ran mother.
+\b. Out of it (*there) steps Archie Cambell.\\
+(Bresnan 1994: 99)
+\b. Here (*there) comes someone.
+\b. Suddenly, down (*there) fell two squirrels, startling everyone.
+
+\item The locative PP can bind into a crossed-over experiencer in raising, suggesting it has undergone raising into the matrix clause and making it hard to see how \emph{there} could have as well
+\ex. \a. ?*It seemed to her$_1$ that at least one clever argument was in every student$_1$'s dissertation.
+\b. In every student$_1$'s dissertation seemed to her$_1$ to be at least one clever argument.
+\b. ??In every student$_1$'s dissertation, there seemed to her$_1$ to be at least one clever argument
+%\b. ?*In each professor$_1$'s office, there seemed to her$_1$ son to be the greatest library in the world.
+%\ex. \a. ?*It invariably seems to him$_1$ that the world's finest automobile is in every man$_1$'s garage.
+%\b. In every man$_1$'s garage invariably seems to him$_1$ to be the world's finest automobile.
+%\b. ?*In every man$_1$'s garage, there invariably seems to him$_1$ to be the world's finest automobile.
+
+\item LI is not associated with the definiteness effect that is characteristic of expletive sentences, even when the associate can be shown to be \emph{in situ}
+\ex. No A$'$-movement out of extraposed DP
+\a. ?*Who did you meet yesterday the most offensive friends of $t$?
+\b. ?*Who do you consult often the closest associates of $t$?
+
+\ex. Extraction is possible out of definite LI DPs
+\a. ?Who did you say that into the room walked the most offensive friends of $t$?
+\b. ?Who did you say that on this pedestal stood the closest associates of $t$ during the Gettysburg Address? 
+
+\ex. Adjuncts that must remain VP internal under VP topicalization (Levin \& Rapoport 1994)
+\a. The tax man wanted to come here with a briefcase. The NASA woman wanted to too/??with a telescope.
+\b. The tax man said he'd come here with a briefcase, and come here (with a briefcase) he did ??(with a briefcase). 
+
+\ex. In LI, the post-verbal DP may precede these PPs
+\a. From the cottage emerged Fred with a spade.
+\b. Here comes the tax man with his briefcase.
+
+%\item[-] We can't simply check for a LI, \emph{there}-insertion contrast in mono-clausal environments, because as Rezac (2006) shows, LI can feed \emph{there}-insertion
+%\ex. \a. In this lake there were caught three fish.\\
+%\b. [$_\text{TopP}$ \Tikzmark{pp}{\phantom{D}}\hspace*{-.3cm}PP [$_\text{TP}$\ \ \ \Tikzmark{there}{\phantom{D}}\hspace*{-.5cm}there [$_\text{TP}$ T \ldots [$_\text{beP}$\ \ \ \Tikzmark{there2}{\phantom{D}}\hspace*{-.5cm}\st{there} [$_\text{beP}$ be [$_\text{$v$P}$ \Tikzmark{pp2}{\phantom{D}}\hspace*{-.3cm}PP [$_\text{$v$P}$ $v$ [$_\text{VP}$ DP \Tikzmark{pp3}{\phantom{D}}\hspace*{-.3cm}PP ]]]]]]]]
+%\DrawArrow{pp3}{pp2}{below}{A-mvmt}[1.2]
+%\DrawArrow{pp2}{pp}{above}{A$'$-mvmt}[-1.2]
+%\DrawArrow{there2}{there}{below}{A-mvmt}[1.2]
+
+\end{enumerate}
+\item Alternative 2: Cullicover \& Levine (2001) suggest that examples like \ref{ldli} involve DP raising followed by heavy-NP shift
+\ex. \a. Into the room appeared to walk John.\\
+\b. [$_\text{TopP}$ \Tikzmark{pp}{\phantom{D}}\hspace*{-.3cm}PP  [$_\text{TP}$ [$_\text{TP}$\  \Tikzmark{gem}{\phantom{D}}\hspace*{-.3cm}\st{DP} [\Tikzmark{p}{\phantom{D}}\hspace*{-.2cm}T$_{[\varphi:\underline{2}]}$+are [$_\text{$v$P}$ thought [ \ \ \ldots\ [ to [$_\text{$v$P}$ be [\Tikzmark{g}{\phantom{D}}\hspace*{-.3cm}DP\ \Tikzmark{pp2}{\phantom{D}}\hspace*{-.3cm}\st{PP}]]]]]]]]\ \Tikzmark{gem2}{\phantom{D}}\hspace*{-.3cm}[\st{DP}]]\\
+%\DrawArrow{int}{end}{below}{}[-1.2]
+%\DrawDotted{p}{g}{below}{$\varphi$-\emph{Agree}}[1.2]
+\DrawArrow{g}{gem}{below}{}[1.2]
+\DrawArrow{gem}{gem2}{below}{}[-1.2]
+\DrawArrow{pp2}{pp}{below}{}[2.2]
+
+\item Four arguments against this approach:
+\begin{enumerate}
+\item The PP in LI raising examples can bind into the experiencer 
+\ex. \a. ?*It seems to her$_1$ that a clever argument is in each student$_1$'s dissertation.
+\b. In each student$_1$'s dissertation seems to her$_1$ to be a clever argument.
+
+\item It is exceptionally difficult to extrapose an embedded adjunct over an extraposed matrix argument; if LI involves heavy-NP shift of a raised DP, \NNext should be as ill-formed as \Next
+\ex. \a. ?*John seemed to have been arrested to Sue by Mary.
+\b. *I convinced to ccome to the part the student I wanted to get to know better tomorrow.
+\b. *John is believed to have sent the apples by Mary to Sue.
+
+\ex. \a. On this pedestal is believed to have stood Lincold during the Gettysburg Address
+\b. In this part of the Pacific are known to have arisen four typhoons last year.
+\b. At this drydock are believed to ahve been constructed three ships by the US Navy.
+\b. On this island are known to have lived crocodiles in the Mesozoic.
+\b. Into the room appeared to walk Robin without introducing herself. 
+
+\item LI in raising contexts does not require a phonologically heavy NP; it is possible with NPs that are barred from heavy NP shift without special intonation
+\ex. \a. On top of the piano is believed to have been perched a frame.
+\b. On this roof is believed to have been mounted a flag. 
+\b. In this barrel proved to be fatal toxins. 
+
+\item The post-verbal DP can be sub-extracted from
+\ex. \a. ?Which leader did you say that on this roof are believed to have been mounted depictions of $t$? 
+\b. ?Which period did you say that from this trench are certain to be discovered sacrificial offerings from $t$?
+
+\end{enumerate}
+\item[$\Rightarrow$] {LI PPs can raise, contra Cullicover \& Levine}
+\end{itemize}
+
+\subsection{Low-Merge of expletives}
+\begin{itemize}
+\item Some arguments that expletives are merged low
+\item \underline{Argument 1}: expletives show up in clauses where we don't think there is much functional structure above $v$P (see, e.g., Wurmbrand 2014,2015; Pesetsky 2016)
+\ex. \a. I consider [$_\text{AspP}$ it to have been decided that John will leave]
+\b. I believe [$_\text{Asp}$ there to have been three men arrested]
+\b. I watched [$_\text{XP}$ it snow] all night
+\b. I saw [$_\text{XP}$ there arrive three warships]
+
+\item \underline{Argument 2}: If Spec($v$P) is filled by an argument, expletives are impossible; this captures transtives/unergatives, but also interesting variation among unaccusative predicates
+\begin{itemize}
+\item Levin (1993) shows that unaccusative predicates license a \emph{there} subject iff they do not denote a change of state ($\checkmark$ arrive, depart, \xmark melt, slow, disappear)
+\item Deal (2009) argues that this reflects the fact that change of state predicates involve a $v_{\textsc{cause}}$ head which takes an event argument
+\ex. $v$P-structure for a change-of-state unaccusative\\\\
+\includegraphics[scale=.5]{ard.png}
+ 
+\item Impossibility of \emph{there}-insertion with these predicates can then be assimilated with its impossibility with transitive/unergatives if we assume \emph{there} must be merged in Spec($v$P)
+\item A similar dichotomy of unaccusative predicates also seems right in French (still need to check with more speakers), and google searches indicate its also true in MSc
+\end{itemize}
+\ex. \a. *There/it has [$_\text{$v$P}$ a man [eaten a pizza]].
+\b. *There/it will [$_\text{$v$P}$ a student [fail a test]].
+
+\ex. \a. There has [$_\text{$v$P}$ \st{there} [arrived a man]] 
+\b. *There has [$_\text{$v$P}$ $s$ [melted an ice-cream]]
+
+\item \underline{Argument 3}: MaxElide effects (Wu 2016)
+\begin{itemize}
+\item Sluicing but not VP-ellipsis are possible in cases of object \emph{wh}-movement (Merchant 2001, 2008; Hartman 2011)
+\ex.\label{no-elip} \a. John ate something but I don't know what (*he did)
+\b. Sue borrowed a book. Guess which book (*he did)
+
+\item Hartman (2011): this follows under a MaxElide theory of ellipsis
+%\ex. For ellipsis of EC [elided constituent] to be licensed, there must exist a constituent, which reflexively dominates EC and satisfies the parallelism condition in \Next. [Call this constituent the parallelism domain (PD).]
+
+\ex. {\bf Parallelism}:\\
+PD satisfies the parallelism condition if PD is semantically identical to another constituent AC, modulo focus-marked constituents.
+
+\ex. {\bf MaxElide}:\\
+Elide the biggest deletable constituent reflexively dominated by the PD
+
+\item In examples like \ref{no-elip}, the antecedent and ellipsis clause contain two chains: the chain formed by QR/\emph{wh}-movement, with an intermediate stop at $v$P, and the chain formed by moving the subject to TP 
+\ex. [something/what [1 [$_\text{TP}$ John [2 \ldots [$_\text{$v$P}$ $t_1$ [3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$]]]]]]]]
+
+\item Assuming QR/\emph{wh}-movement land above the basic position of the subject, $v$P is not a possible parallelism domain because it contains a variable that is free in $v$P, namely the trace of the subject 
+\ex. \a. [something [1 [$_\text{TP}$ John [2 \ldots $\underbrace{\text{[$_\text{$v$P}$ $t_1$ [3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$]]]]}}_\text{\xmark\ PD: $t_1$, $t_2$ free}$]]]]
+\b. [something [1 [$_\text{TP}$ John [2 \ldots [$_\text{$v$P}$ $t_1$ $\underbrace{\text{[3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$]]]}}_\text{\xmark\ PD: $t_2$ free}$]]]]]
+
+\item The smallest parallelism is the first projection above the subject that QR/\emph{wh}-movement targets
+\begin{itemize}
+\item[$\Rightarrow$] MaxElide dictates that TP, not VP, is elided
+\end{itemize}
+%\ex. [something $\underbrace{\text{[1 [$_\text{TP}$ John [2 \ldots [$_\text{$v$P}$ $t_1$ [3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ ate $t_3$]]]]]]]}}_\text{$\checkmark$ PD: all variables bound}$]
+
+\item Because the subject trace is what blocked $v$P from counting as a PD above, we can use the availability of VP-ellipsis as a tool to diagnose where expletives are merged
+\item High merge: no trace in $v$P to block a low PD $\Rightarrow$ \emph{VP-ellipsis should be possible}
+\ex. [someone [1 [$_\text{TP}$ there [\ldots [$_\text{$v$P}$ $t_1$ $\underbrace{\text{ [3 \ldots [$_\text{VP}$ arrived $t_3$]]}}_\text{$\checkmark$ PD: no variables free}$]]]]]
+
+\item Low merge: trace in $v$P blocks low PD $\Rightarrow$ \emph{VP-ellipsis should be impossible}
+\ex. [someone [1 [$_\text{TP}$ there [2 \ldots [$_\text{$v$P}$ $t_1$ $\underbrace{\text{[3 [$_\text{$v$P}$ $t_2$ [$_\text{VP}$ arrived $t_3$]]]}}_\text{\xmark\ PD: $t_2$ free}$]]]]]
+
+\item VP ellipsis is in fact impossible here, suggesting expletives are merged low
+\ex. \a. There were several men invited, but I don't know exactly how many (*there were)
+\b. There have arrived several guests, but I have no idea how many (*there have)
+
+\end{itemize}
+
+\end{itemize}
+\end{document}
+
+\subsubsection{Icelandic}
+\begin{itemize}
+\item Icelandic shows a similar pattern to the languages in question:
+\begin{itemize}
+\item No PPA in transitive clauses
+\item PPA obligatory with \emph{in situ} objects of passives/unaccusatives
+\end{itemize}
+\ex. \ag. Einhver nemandi hefur tekinn \'i b\'okasafninu.\\
+some student.\SC{nom.m.sg} has been taken.\SC{nom.m.sg} in library-the\\
+`Some student has been taken in the library.'
+\bg. {\textthorn a\dh} hefur {veri\dh} tekinn einhver nemandi \'i b\'okasafninu.\\
+\SC{expl} has been taken.\SC{nom.m.sg} some student.\SC{nom.m.sg} in library-the\\
+`There has been some student taken in the library.'\\
+(Thrainsson 2007: 272)
+
+\item Problem: most authors assume \emph{\textthorn a\dh} is merged in CP, so it's unclear whether Icelandic has an EPP on T/$v$
+\end{itemize}
+
+
+
+\end{document}
+\begin{itemize}
+\item Cardinaletti (1997) argues that the presence of an overt expletive is not a reliable indicator of whether agreement obtains with a post-verbal DP
+\item {\bf Claim}: The verb agrees with the expletive iff the expletive morpheme is not ambiguous with an object morpheme
+\begin{itemize}
+\item ``Since locative elements such as English \emph{there} do not display Case morphology, it is expected that, when used as expletives, they do not trigger agreement with the verb.'' (Cardinaletti 1997: 522)
+\end{itemize}
+\item This analysis hinges on a number of claims that we might have reason to doubt
+\item {\bf Problem 1}: Cardinaletti uses the availaibility of control into an adjunct modifier as a diagnostic for \emph{Agree} in cases where it is not spelled out overtly
+\ex. \a. ?There entered two men without identifying themselves \hfill ($\checkmark$ \emph{Agree} $\Rightarrow$ $\checkmark$ control)
+\b. Il est entr\'e trois hommes sans s'excuser. \hfill (\xmark\  \emph{Agree} $\Rightarrow$ \xmark\  control)
+
+\item But this correlation does not hold even internal to English
+\ex. \a. A man$_1$ was arrested despite PRO$_1$ not having done anything.
+\b. *There was a man$_1$ arrested despite PRO$_1$ not having done anything.
+
+\item This calls into question a number of her data points, e.g., that the verb in MSc agrees with the post-verbal associate rather than the expletive
+\ex. \a. Det kom inn tre menn uten a identifersere seg. \hfill \emph{Norwegian}
+\b. Det intr\"adde tre m\"an utan att identifiera sig. \hfill \emph{Swedish}
+
+\item {\bf Problem 2}: In MSc, both expletive \emph{det} and expletive \emph{der} are Case-invariant, yet only the latter is compatible with $\varphi$-\emph{Agree} with an \emph{in situ} object
+\ex. \emph{Norwegian} passives
+\ag. {\bf Det} vart skote-{\bf (*n)} {\bf ein} {\bf elg}\\
+it was shot.\SC{n.sg/*m.sg} an.\SC{m.sg} elk.\SC{m.sg}\\
+\bg. {\bf Der} vart skot{\bf en} {\bf ein} {\bf elg}\\
+there was shot.\SC{m.sg} an.\SC{m.sg} elk.\SC{m.sg}\\
+`There was an elk shot'\\
+(\r{A}farli 2008: 171)
+
+\end{itemize}
+
+
+
+
+\end{document}
