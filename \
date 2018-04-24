@@ -647,14 +647,20 @@ Compared with these approaches, two aspects of the present account are particula
 \section{Conclusion}
 At the outset of this paper, we set out to address the technical challenge raised by PPA on the modern understanding of agreement, and we have now sketched a theory in these terms that captures the data. The upshot is that the restricted nature of PPA compared to agreement triggered in the TP domain reduces to the fact that $v$, but not T, is a locus of argument/expletive insertion. 
 
-These results, and the corresponding theory, raise interesting issues about the nature of the correlation between agreement and movement. We have now seen, in addition to the cross-linguistic evidence pointed to in the introduction, that the strong correlation posited under the Spec-Head theory runs into trouble even in the domain of PPA, which at least partially motivated the theory in the first place. Some degree of decoupling between agreement and movement is therefore warranted, and the prevailing hypothesis is that this decoupling should be complete. Agreement and movement share no formal link, and cases of apparent correlation are essentially accidental: some heads happen to have both agreement and movement inducing features, but there is no formal dependency. Our account of PPA has essentially adopted this view. While we made extensive use of the fact that $v$ had both merge and agreement features, this feature coupling has not been shown to follow from any deeper principles. 
+These results, and the corresponding theory, raise an interesting question about the nature of the correlation between agreement and movement. On the one hand, we have now seen, in addition to the cross-linguistic evidence pointed to in the introduction, that the strong correlation posited under the Spec-Head theory runs into trouble even in the domain of PPA, which at least partially motivated the theory in the first place. Some degree of decoupling between agreement and movement is therefore warranted, and the prevailing hypothesis is that this decoupling should be complete. Agreement and movement share no formal link, and cases of apparent correlation are essentially accidental: some heads happen to have both agreement and movement inducing features, but there is no formal dependency. Our account of PPA has essentially adopted this view. While we made extensive use of the fact that $v$ had both merge and agreement features, this feature coupling has not been shown to follow from any deeper principles. Our one innovation in the agreement-movement correlation domain has been to postulate that when a head happens to have both agreement and movement features, they must act concurrently if possible, i.e., agreement triggers movement when it can. 
 
-Our one innovation in the agreement-movement correlation domain has been to postulate that when a head happens to have both agreement and movement features, they must act concurrently if possible, i.e., agreement triggers movement when it can. To conclude the paper I would like to suggest that it may be possible to extend the main results of the paper, at least tentatively, to a stronger conclusion. In particular, there is indeed a formal correlation between agreement and movement, along the lines in \Next. 
+The suggest that it may be possible to extend the main results of the paper, at least tentatively, to a stronger conclusion. In particular, that there is indeed a formal correlation between agreement and movement, along the lines in \Next. 
 \ex.\label{macor} {\bf The agreement-movement coupling hypothesis}:\\
 \ [$\varphi$:\_] features are parasitic on \fm{D} features
 
 Phrased alternatively, if a head can license agreement, it must also be capable of triggering movement, and, given Feature Maximality, must do so unless something else exhausts its merge feature first. 
 
+ 
+Before concluding, if we re-examine the canonical examples of agreement \emph{sans} movement (ASM) in the literature from the perspective of the theory developed so far, a deeper link between agreement and movement tentatively emerges. In particular, the following hypothesis is borne out: 
+\ex.\label{macor} {\bf The agreement-movement coupling hypothesis}:\\
+\ [$\varphi$:\_] features are parasitic on \fm{D} features
+
+Phrased alternatively, if a head can license agreement, it must also be capable of triggering movement, and, given Feature Maximality, must do so unless something else exhausts its merge feature first.  
 
 \section{Generalizing the result}
 
